@@ -1,2 +1,2 @@
 # clases-hlc
-Desarrollo del sitio hlc.tinaja.es
+Desarrollo del sitio https://hlc.tinaja.es utilizando [Pelican](https://getpelican.com/)
