@@ -9,4 +9,4 @@ modified: 2019-09-21
 
 **Documentación**
 
-* [LXC](https://aso.tinaja.es/doc/lxc.pdf)
+* [lxc.pdf](https://aso.tinaja.es/doc/lxc.pdf)

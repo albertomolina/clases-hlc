@@ -20,7 +20,8 @@ modified: 2019-09-21
 	1. Migración de MVs
 
 **Documentación**
-* [Introducción a la virtualización](https://aso.tinaja.es/doc/virtualizacion.pdf)
+
+* [virtualizacion.pdf](https://aso.tinaja.es/doc/virtualizacion.pdf)
 
 **Recursos útiles**
 
