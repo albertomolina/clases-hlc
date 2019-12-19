@@ -24,11 +24,11 @@ profesores y alumnos de nuestro centro.
 
 ## [Virtualización](/virt/)
 
+## [Almacenamiento](/alm/)
+
 ## [Contenedores I](/cont1/)
 
 ## [Contenedores II](/cont2/)
-
-## [Almacenamiento](/alm/)
 
 ## [Despliegue de OpenStack](/openstack2/)
 
