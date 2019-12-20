@@ -1,4 +1,5 @@
 title: Almacenamiento
+slug: alm/index
 date: 2019-12-19
 modified: 2019-12-16
 
@@ -36,6 +37,11 @@ modified: 2019-12-16
 
 * [Sistemas de ficheros](https://aso.tinaja.es/doc/sist-virt.pdf)
 * [RAID](https://aso.tinaja.es/doc/raid.pdf)
+
+**Vídeos**
+
+* [Introducción](https://www.youtube.com/watch?v=csYdDpFSYHY)
+* [Sistemas de ficheros](https://www.youtube.com/watch?v=rG14OFsj5mM)
 
 **Recursos útiles**
 
