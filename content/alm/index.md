@@ -4,12 +4,12 @@ date: 2019-12-19
 modified: 2019-12-16
 
 1. Sistemas de ficheros
-    1. Sistemas de ficheros clásicos. Características
+    1. Sistemas de ficheros clásicos. Características [Presentación](https://aso.tinaja.es/doc/sist-virt.pdf) [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
 	1. ZFS
 	1. Btrfs
 1. LVM
 1. RAID
-    1. Intro
+    1. Intro [Presentación](https://aso.tinaja.es/doc/raid.pdf)
     1. Uso de RAID software
     1. Uso de RAID hardware
 1. NAS
@@ -17,7 +17,7 @@ modified: 2019-12-16
 	1. NFS
 	1. SMB y CIFS
 1. SAN
-    1. Características
+    1. Características [Presentación](https://aso.tinaja.es/doc/san.pdf)
     1. iSCSI
 	1. Ceph RBD
 1. Sistemas de ficheros en clúster
@@ -37,6 +37,7 @@ modified: 2019-12-16
 
 * [Sistemas de ficheros](https://aso.tinaja.es/doc/sist-virt.pdf)
 * [RAID](https://aso.tinaja.es/doc/raid.pdf)
+* [SAN](https://aso.tinaja.es/doc/san.pdf)
 
 **Vídeos**
 
