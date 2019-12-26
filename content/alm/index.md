@@ -4,7 +4,7 @@ date: 2019-12-19
 modified: 2019-12-16
 
 1. Sistemas de ficheros
-    1. Sistemas de ficheros clásicos. Características [Presentación](https://aso.tinaja.es/doc/sist-virt.pdf) [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
+    1. Sistemas de ficheros clásicos. Características [Presentación](https://aso.tinaja.es/doc/sist-virt.pdf) - [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
 	1. ZFS
 	1. Btrfs
 1. LVM
@@ -17,7 +17,7 @@ modified: 2019-12-16
 	1. NFS
 	1. SMB y CIFS
 1. SAN
-    1. Características [Presentación](https://aso.tinaja.es/doc/san.pdf)
+    1. Características [Presentación](https://aso.tinaja.es/doc/san.pdf) - [Vídeo](https://www.youtube.com/watch?v=g5IrCJdLx38)
     1. iSCSI
 	1. Ceph RBD
 1. Sistemas de ficheros en clúster
@@ -41,11 +41,18 @@ modified: 2019-12-16
 
 **Vídeos**
 
+* [Lista de reproducción HLC: Almacenamiento](https://www.youtube.com/watch?v=csYdDpFSYHY&list=PLqSj8IWqKs1QPE_ubLeW-UTSOB98STDLh)
+
 * [Introducción](https://www.youtube.com/watch?v=csYdDpFSYHY)
 * [Sistemas de ficheros](https://www.youtube.com/watch?v=rG14OFsj5mM)
+* [SAN](https://www.youtube.com/watch?v=g5IrCJdLx38)
 
 **Recursos útiles**
 
 * [Youtube: btrfs: The Best Filesystem You've Never Heard Of](https://www.youtube.com/watch?v=-m01x3gHNjg)
+* [Btrfs Wiki](https://btrfs.wiki.kernel.org/index.php/Main_Page)
+* [Debian Handbook: RAID y LVM](https://debian-handbook.info/browse/es-ES/stable/advanced-administration.html#sect.raid-and-lvm)
+* [LVM Linear vs Striped Logical Volumes](https://sysadmincasts.com/episodes/27-lvm-linear-vs-striped-logical-volumes)
 * [Wikipedia: Clustered file system](https://en.wikipedia.org/wiki/Clustered\_file\_system)
 * [nixCraft: Linux tgtadm: Setup iSCSI Target (SAN)](https://www.cyberciti.biz/tips/howto-setup-linux-iscsi-target-sanwith-tgt.html)
+* [Wikimedia: The Linux Storage Stack Diagram](https://upload.wikimedia.org/wikipedia/commons/3/30/IO_stack_of_the_Linux_kernel.svg)
