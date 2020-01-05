@@ -4,8 +4,8 @@ date: 2019-12-19
 modified: 2019-12-16
 
 1. Sistemas de ficheros
-    1. Sistemas de ficheros clásicos. Características [Presentación](https://aso.tinaja.es/doc/sist-fich.pdf) - [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
-	1. Sistemas de ficheros. Funcionalidades avanzadas [Presentación](https://aso.tinaja.es/doc/sist-fich-2.pdf)
+    1. Sistemas de ficheros clásicos. Características [Presentación](https://aso.tinaja.es/doc/sist-ficheros.pdf) - [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
+	1. Sistemas de ficheros. Funcionalidades avanzadas [Presentación](https://aso.tinaja.es/doc/sist-ficheros-2.pdf)
 	1. ZFS
 	1. Btrfs
 1. LVM
@@ -36,8 +36,8 @@ modified: 2019-12-16
 
 **Documentación**
 
-* [Sistemas de ficheros](https://aso.tinaja.es/doc/sist-fich.pdf)
-* [Sistemas de ficheros. Funcionalidades avanzadas](https://aso.tinaja.es/doc/sist-fich-2.pdf)
+* [Sistemas de ficheros](https://aso.tinaja.es/doc/sist-ficheros.pdf)
+* [Sistemas de ficheros. Funcionalidades avanzadas](https://aso.tinaja.es/doc/sist-ficheros-2.pdf)
 * [RAID](https://aso.tinaja.es/doc/raid.pdf)
 * [SAN](https://aso.tinaja.es/doc/san.pdf)
 
