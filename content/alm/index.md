@@ -4,13 +4,13 @@ date: 2019-12-19
 modified: 2019-12-16
 
 1. Sistemas de ficheros
-    1. Sistemas de ficheros clásicos. Características [Presentación](https://aso.tinaja.es/doc/sist-ficheros.pdf) - [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
-	1. Sistemas de ficheros. Funcionalidades avanzadas [Presentación](https://aso.tinaja.es/doc/sist-ficheros-2.pdf)
-	1. ZFS [Presentación](https://aso.tinaja.es/doc/zfs.pdf)
-	1. Btrfs [Presentación](https://aso.tinaja.es/doc/btrfs.pdf)
+    1. Sistemas de ficheros clásicos. Características [sist-ficheros.pdf](https://aso.tinaja.es/doc/sist-ficheros.pdf) - [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
+	1. Sistemas de ficheros. Funcionalidades avanzadas [sist-ficheros-2.pdf](https://aso.tinaja.es/doc/sist-ficheros-2.pdf)
+	1. ZFS [zfs.pdf](https://aso.tinaja.es/doc/zfs.pdf)
+	1. Btrfs [btrfs.pdf](https://aso.tinaja.es/doc/btrfs.pdf)
 1. LVM
 1. RAID
-    1. Intro [Presentación](https://aso.tinaja.es/doc/raid.pdf)
+    1. Intro [raid.pdf](https://aso.tinaja.es/doc/raid.pdf)
     1. Uso de RAID software
     1. Uso de RAID hardware
 1. NAS
@@ -18,8 +18,8 @@ modified: 2019-12-16
 	1. NFS
 	1. SMB y CIFS
 1. SAN
-    1. Características [Presentación](https://aso.tinaja.es/doc/san.pdf) - [Vídeo](https://www.youtube.com/watch?v=g5IrCJdLx38)
-    1. iSCSI
+    1. Características [san.pdf](https://aso.tinaja.es/doc/san.pdf) - [Vídeo](https://www.youtube.com/watch?v=g5IrCJdLx38)
+    1. iSCSI [iscsi.pdf](https://aso.tinaja.es/doc/iscsi.pdf)
 	1. Ceph RBD
 1. Sistemas de ficheros en clúster
     1. Características
@@ -33,15 +33,6 @@ modified: 2019-12-16
 		1. Windows DFS
 		1. Lustre
 1. Almacenamiento de objetos en la nube
-
-**Documentación**
-
-* [Sistemas de ficheros](https://aso.tinaja.es/doc/sist-ficheros.pdf)
-* [Sistemas de ficheros. Funcionalidades avanzadas](https://aso.tinaja.es/doc/sist-ficheros-2.pdf)
-* [ZFS](https://aso.tinaja.es/doc/zfs.pdf)
-* [Btrfs](https://aso.tinaja.es/doc/btrfs.pdf)
-* [RAID](https://aso.tinaja.es/doc/raid.pdf)
-* [SAN](https://aso.tinaja.es/doc/san.pdf)
 
 **Vídeos**
 
