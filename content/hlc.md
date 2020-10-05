@@ -20,9 +20,9 @@ profesores y alumnos de nuestro centro.
 
 ## [Introducción](/intro/)
 
-## [Utilización de openstack](/openstack/)
-
 ## [Virtualización](/virt/)
+
+## [Utilización de openstack](/openstack/)
 
 ## [Almacenamiento](/alm/)
 

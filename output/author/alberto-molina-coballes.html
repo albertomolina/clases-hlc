@@ -20,11 +20,49 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../alm/index.html">Almacenamiento</a></h1>
+                    <h1 class="entry-title"><a href="../virt/libvirt.html">Libvirt</a></h1>
+<footer class="post-info">
+        <span>lun 05 octubre 2020</span>
+
+</footer><!-- /.post-info --><p>Libvirt proporciona una API genérica, un demonio y un conjunto de
+herramientas de gestión para diferentes sistemas de virtualización,
+en particular los sistemas de virtualización nativos de linux: KVM,
+LXC o Xen. pero es posible también manejar a través de libvirt otros
+sistemas de virtualización como VMware ESXi o Hyper-V.</p>
+<p><a href="../virt/Libvirtsupport.svg">Esquema libvirt</a></p>
+<h1>Instalación</h1>
+<p>Instalamos los siguientes paquetes para usar libvirt con KVM:</p>
+<div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="n">libvrt</span><span class="o">-</span><span class="n">daemon</span><span class="o">-</span><span class="k">system</span> <span class="n">qemu</span><span class="o">-</span><span class="n">kvm</span>
+</pre></div>
+
+
+<p>libvirt proporciona varios mecanismos para conectarse a un hipervisor,
+tanto de forma local como remota, los que veremos en este curso son:</p>
+<ol>
+<li><code>qemu:///session</code>: Acceso local por usuario no privilegiado</li>
+<li><code>qemu:///system</code>: Acceso local privilegiado</li>
+<li><code>qemu+ssh:///system</code>: Acceso remoto privilegiado por ssh</li>
+</ol>
+<h2>Uso básico de qemu-system</h2>
+<p>Cuando se instala libvirt, se proporciona un directorio de
+almacenamiento y una red por defecto ya configurados, disponibles para
+cualquier usuario del grupo <code>libvirt</code>.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../alm/index.html" rel="bookmark"
+                           title="Permalink to Almacenamiento">Almacenamiento</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>jue 19 diciembre 2019</span>
 
-</footer><!-- /.post-info --><ol>
+</footer><!-- /.post-info -->                <ol>
 <li>Sistemas de ficheros<ol>
 <li>Sistemas de ficheros clásicos. Características <a href="https://aso.tinaja.es/doc/sist-ficheros.pdf">sist-ficheros.pdf</a> - <a href="https://www.youtube.com/watch?v=rG14OFsj5mM">Vídeo</a></li>
 <li>Sistemas de ficheros. Funcionalidades avanzadas <a href="https://aso.tinaja.es/doc/sist-ficheros-2.pdf">sist-ficheros-2.pdf</a></li>
@@ -46,56 +84,10 @@
 </ol>
 </li>
 <li>SAN<ol>
-<li>Características <a href="https://aso.tinaja.es/doc/san.pdf">san.pdf</a> - <a href="https://www.youtube.com/watch?v=g5IrCJdLx38">Vídeo</a></li>
-<li>iSCSI <a href="https://aso.tinaja.es/doc/iscsi.pdf">iscsi.pdf</a></li>
-<li>Ceph RBD</li>
-</ol>
-</li>
-<li>Sistemas de ficheros en clúster<ol>
-<li>Características</li>
-<li>Sistemas de dispositivos de bloques compartidos<ol>
-<li>DRBD</li>
-<li>OCFS2</li>
-<li>GFS2</li>
-</ol>
-</li>
-<li>Sistemas de ficheros distribuidos<ol>
-<li>GlusterFS</li>
-<li>CephFS</li>
-<li>Windows DFS</li>
-<li>Lustre</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>Almacenamiento de objetos en la nube</li>
-</ol>
-<p><strong>Vídeos</strong></p>
-<ul>
-<li>
-<p><a href="https://www.youtube.com/watch?v=csYdDpFSYHY&amp;list=PLqSj8IWqKs1QPE_ubLeW-UTSOB98STDLh">Lista de reproducción HLC: Almacenamiento</a></p>
-</li>
-<li>
-<p><a href="https://www.youtube.com/watch?v=csYdDpFSYHY">Introducción</a></p>
-</li>
-<li><a href="https://www.youtube.com/watch?v=rG14OFsj5mM">Sistemas de ficheros</a></li>
-<li><a href="https://www.youtube.com/watch?v=g5IrCJdLx38">SAN</a></li>
-</ul>
-<p><strong>Recursos útiles</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=YGX1d9WEJYI">Youtube: RHEL 8 Beta - XFS Copy-On-Write Data Extents</a></li>
-<li><a href="https://www.youtube.com/watch?v=-m01x3gHNjg">Youtube: btrfs: The Best Filesystem You've Never Heard Of</a></li>
-<li><a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs Wiki</a></li>
-<li><a href="https://debian-handbook.info/browse/es-ES/stable/advanced-administration.html#sect.raid-and-lvm">Debian Handbook: RAID y LVM</a></li>
-<li><a href="https://sysadmincasts.com/episodes/27-lvm-linear-vs-striped-logical-volumes">LVM Linear vs Striped Logical Volumes</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Clustered_file_system">Wikipedia: Clustered file system</a></li>
-<li><a href="https://www.cyberciti.biz/tips/howto-setup-linux-iscsi-target-sanwith-tgt.html">nixCraft: Linux tgtadm: Setup iSCSI Target (SAN)</a></li>
-<li><a href="https://upload.wikimedia.org/wikipedia/commons/3/30/IO_stack_of_the_Linux_kernel.svg">Wikimedia: The Linux Storage Stack Diagram</a></li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+<li>Características <a href="https://aso.tinaja.es/doc/san.pdf">san.pdf …</a></li></ol></li></ol>
+                <a class="readmore" href="../alm/index.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -181,7 +173,7 @@
 </ol>
 </li>
 <li>KVM<ol>
-<li>libvirt</li>
+<li><a href="{filename}/virt/libvirt">libvirt</a></li>
 <li>Dispositivos paravirtualizados: virtio</li>
 <li>Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato</li>
 <li>Imágenes base con qcow2</li>
