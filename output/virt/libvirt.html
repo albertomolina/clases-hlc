@@ -34,24 +34,55 @@ herramientas de gestión para diferentes sistemas de virtualización,
 en particular los sistemas de virtualización nativos de linux: KVM,
 LXC o Xen. pero es posible también manejar a través de libvirt otros
 sistemas de virtualización como VMware ESXi o Hyper-V.</p>
-<p><a href="../virt/Libvirtsupport.svg">Esquema libvirt</a></p>
+<p><img alt="Esquema libvirt" src="../virt/Libvirtsupport.svg"></p>
 <h1>Instalación</h1>
 <p>Instalamos los siguientes paquetes para usar libvirt con KVM:</p>
 <div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="n">libvrt</span><span class="o">-</span><span class="n">daemon</span><span class="o">-</span><span class="k">system</span> <span class="n">qemu</span><span class="o">-</span><span class="n">kvm</span>
 </pre></div>
 
 
-<p>libvirt proporciona varios mecanismos para conectarse a un hipervisor,
-tanto de forma local como remota, los que veremos en este curso son:</p>
+<p>libvirt proporciona varios mecanismos para conectarse a un hipervisor
+qemu-kvm, tanto de forma local como remota, los que veremos en este
+curso son:</p>
 <ol>
 <li><code>qemu:///session</code>: Acceso local por usuario no privilegiado</li>
 <li><code>qemu:///system</code>: Acceso local privilegiado</li>
 <li><code>qemu+ssh:///system</code>: Acceso remoto privilegiado por ssh</li>
 </ol>
-<h2>Uso básico de qemu-system</h2>
-<p>Cuando se instala libvirt, se proporciona un directorio de
-almacenamiento y una red por defecto ya configurados, disponibles para
-cualquier usuario del grupo <code>libvirt</code>.</p>
+<h2>Uso local de qemu-system</h2>
+<p>La principal limitación del uso de la conexión qemu:///session es que
+el usuario normal no suele tener permisos para crear conexiones de
+red, por lo que se limita su uso de la red no privilegiada de qemu
+(<a href="https://wiki.qemu.org/Documentation/Networking#User_Networking_.28SLIRP.29">SLIRP</a>)
+que es útil para casos simples, pero que tiene bajo rendimiento y es
+poco configurable. Así que es muchas ocasiones, se utiliza la conexión
+qemu:///system, que es única para todo el sistema y que puede utilizar
+tanto el usuario <code>root</code> como cualquier miembro del grupo <code>libvirt</code>.</p>
+<p>Por tanto, si queremos usar qemu-system localmente, debemos agregar
+nuestro usuario al grupo libvirt o usar libvirt directamente con el
+usuario root:</p>
+<div class="highlight"><pre><span></span><span class="n">adduser</span> <span class="o">&lt;</span><span class="n">usuario</span><span class="o">&gt;</span> <span class="n">libvirt</span>
+</pre></div>
+
+
+<h2>Aplicaciones para usar libvirt</h2>
+<p>Libvirt proporciona una API que puede ser utilizada por diferentes
+clientes CLI, GUI o web. Un listado no muy actualizado de estos
+clientes es:</p>
+<p><a href="https://www.linux-kvm.org/page/Management_Tools">KVM Management Tools</a></p>
+<h3>virsh</h3>
+<p>Existen múltiples clientes que pueden usar la API de libvirt, pero el
+cliente por línea de comandos "oficial" es
+<a href="../virt/virsh.html">virsh</a>, que proporciona una shell completa para
+el manejo de la API.</p>
+<h3>virt-manager</h3>
+<p>Es un GUI muy simple (demasiado a veces) que está disponible como
+paquete debian (<code>virt-manager</code>), pero que podemos usar en algunas
+ocasiones de forma alternativa a virsh.</p>
+<h3>virtinst</h3>
+<p>Paquete que proporciona los comandos <code>virt-clone</code>, <code>virt-convert</code>,
+<code>virt-install</code> y <code>virt-xml</code> útiles para crear y copiar máquinas
+virtuales.</p>
     </div><!-- /.entry-content -->
 
   </article>
