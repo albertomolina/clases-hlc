@@ -65,6 +65,22 @@ usuario root:</p>
 </pre></div>
 
 
+<h2>Características de la API de libvirt</h2>
+<p>Por defecto se crea el socket <code>/var/run/libvirt/libvirt-sock</code>
+accesible localmente o a través de un túnel ssh (qemu+ssh) y el
+formato de los ficheros que se intercambian a través de la API es XML,
+que se describen en
+<a href="https://libvirt.org/format.html">https://libvirt.org/format.html</a>. Es
+posible modificar el demonio para aceptar conexiones TCP y utilizar
+certificados o algún sistema equivalente para autorizar a los
+usuarios, pero la combinación de uso local de socket UNIX y remoto a
+través de túneles ssh suele ser suficiente para el ámbito de uso
+habitual de libvirt.</p>
+<p>La ventaja de utilizar XML para la definición de los objetos de la API
+es que libvirt también proporciona los esquemas de los mismos, que
+permite validar los documentos antes de interactuar con la API. Los
+esquemas están disponibles en el propio repositorio de libvirt:</p>
+<p><a href="https://libvirt.org/git/?p=libvirt.git;a=tree;f=docs/schemas">https://libvirt.org/git/?p=libvirt.git;a=tree;f=docs/schemas</a></p>
 <h2>Aplicaciones para usar libvirt</h2>
 <p>Libvirt proporciona una API que puede ser utilizada por diferentes
 clientes CLI, GUI o web. Un listado no muy actualizado de estos
