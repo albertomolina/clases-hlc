@@ -3,7 +3,7 @@ slug: virt/index
 date: 2019-09-21
 modified: 2019-09-21
 
-1. Tipos de virtualización. Características principales y comparativa de productos.
+1. Tipos de virtualización. Características principales y comparativa de productos. [virtualizacion.pdf](https://aso.tinaja.es/doc/virtualizacion.pdf)
 1. Configuraciones de red en sistemas virtuales: NAT, bridge y route
 1. Almacenamiento local de máquinas virtuales
     1. Ficheros

@@ -24,7 +24,28 @@
 <footer class="post-info">
         <span>mar 06 octubre 2020</span>
 
-</footer><!-- /.post-info -->                </article>
+</footer><!-- /.post-info --><h2>Pool por defecto</h2>
+<p>Si no existe, creamos un pool por defecto en /var/lib/libvirt/images con el fichero default-pool.xml</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">&#39;dir&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;name&gt;</span>default<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;uuid&gt;</span>...<span class="nt">&lt;/uuid&gt;</span>
+  <span class="nt">&lt;source&gt;</span>
+  <span class="nt">&lt;/source&gt;</span>
+  <span class="nt">&lt;target&gt;</span>
+    <span class="nt">&lt;path&gt;</span>/var/lib/libvirt/images<span class="nt">&lt;/path&gt;</span>
+    <span class="nt">&lt;permissions&gt;</span>
+      <span class="nt">&lt;mode&gt;</span>0755<span class="nt">&lt;/mode&gt;</span>
+      <span class="nt">&lt;owner&gt;</span>0<span class="nt">&lt;/owner&gt;</span>
+      <span class="nt">&lt;group&gt;</span>0<span class="nt">&lt;/group&gt;</span>
+    <span class="nt">&lt;/permissions&gt;</span>
+  <span class="nt">&lt;/target&gt;</span>
+<span class="nt">&lt;/pool&gt;</span>
+</pre></div>
+
+
+<p>Y lo añadimos con:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">pool</span><span class="o">-</span><span class="k">create</span> <span class="k">default</span><span class="o">-</span><span class="n">pool</span><span class="p">.</span><span class="n">xml</span>
+</pre></div>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -60,7 +81,7 @@ sistemas de virtualización como VMware ESXi o Hyper-V …</p>
         <span>sáb 21 septiembre 2019</span>
 
 </footer><!-- /.post-info -->                <ol>
-<li>Tipos de virtualización. Características principales y comparativa de productos.</li>
+<li>Tipos de virtualización. Características principales y comparativa de productos. <a href="https://aso.tinaja.es/doc/virtualizacion.pdf">virtualizacion.pdf</a></li>
 <li>Configuraciones de red en sistemas virtuales: NAT, bridge y route</li>
 <li>Almacenamiento local de máquinas virtuales<ol>
 <li>Ficheros</li>
@@ -72,8 +93,7 @@ sistemas de virtualización como VMware ESXi o Hyper-V …</p>
 <li>Dispositivos paravirtualizados: virtio</li>
 <li>Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato</li>
 <li>Imágenes base con qcow2</li>
-<li>Instantáneas (Snapshots)</li>
-<li>Gestión de …</li></ol></li></ol>
+<li>Instantáneas (Snapshots …</li></ol></li></ol>
                 <a class="readmore" href="../virt/index.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
