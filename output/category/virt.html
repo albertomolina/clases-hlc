@@ -20,81 +20,50 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../virt/virsh.html">virsh</a></h1>
+                    <h1 class="entry-title"><a href="../virt/ejercicios.html">Ejercicios de virsh</a></h1>
+<footer class="post-info">
+        <span>lun 12 octubre 2020</span>
+
+</footer><!-- /.post-info --><h2>Configuración inicial de <code>qemu:///system</code></h2>
+<ol>
+<li>
+<p>Si no existiene la red default, agrega una red tipo NAT con el
+   direccionamiento <code>192.168.122.0/24</code> que utilice el bridge interno
+   <code>virbr0</code></p>
+</li>
+<li>
+<p>Si no existiese el directorio de almacenamiento por defecto, crea
+   un volumen lógico en tu sistema y móntalo de forma permanente en el
+   directorio /VM. Añade este directorio como "pool" por defecto para
+   los ficheros de imágenes de los dispositivos de almacenamiento de
+   las máquinas virtuales</p>
+</li>
+</ol>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../virt/virsh.html" rel="bookmark"
+                           title="Permalink to virsh">virsh</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>mar 06 octubre 2020</span>
 
-</footer><!-- /.post-info --><p>Virsh es una shell completa para gestionar la API de libvirt. Se puede
+</footer><!-- /.post-info -->                <p>Virsh es una shell completa para gestionar la API de libvirt. Se puede
 usar de forma interactiva o no, pasándole o no directamente las
 órdenes correspondientes.</p>
 <h2>Conexión al hipervisor</h2>
 <p>En el caso de utilizar qemu-kvm localmente, podemos establecer una
 conexión no privilegiada con cada usuario del sistema
-(<code>qemu:///session</code>) o una privilegiada (<code>qemu:///system</code>)</p>
-<div class="highlight"><pre><span></span><span class="nv">virsh</span> <span class="o">-</span><span class="nv">c</span> <span class="nv">qemu</span>:<span class="o">///</span><span class="nv">system</span>
-<span class="nv">Welcome</span> <span class="nv">to</span> <span class="nv">virsh</span>, <span class="nv">the</span> <span class="nv">virtualization</span> <span class="nv">interactive</span> <span class="nv">terminal</span>.
-
-<span class="nv">Type</span>:  <span class="s1">&#39;</span><span class="s">help</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="nv">help</span> <span class="nv">with</span> <span class="nv">commands</span>
-       <span class="s1">&#39;</span><span class="s">quit</span><span class="s1">&#39;</span> <span class="nv">to</span> <span class="nv">quit</span>
-
-<span class="nv">virsh</span> # 
-</pre></div>
-
-
-<h2>Tipos de órdenes</h2>
-<p>Al pasar como parámetro <code>help</code> aparecen las órdenes agrupadas por
-tipo:</p>
-<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="n">help</span>
-<span class="n">Grouped</span> <span class="n">commands</span><span class="p">:</span>
-
- <span class="k">Domain</span> <span class="n">Management</span> <span class="p">(</span><span class="n">help</span> <span class="n">keyword</span> <span class="s1">&#39;domain&#39;</span><span class="p">):</span>
-    <span class="n">attach</span><span class="o">-</span><span class="n">device</span>                  <span class="n">attach</span> <span class="n">device</span> <span class="k">from</span> <span class="n">an</span> <span class="n">XML</span> <span class="n">file</span>
-    <span class="n">attach</span><span class="o">-</span><span class="n">disk</span>                    <span class="n">attach</span> <span class="n">disk</span> <span class="n">device</span>
-    <span class="n">attach</span><span class="o">-</span><span class="n">interface</span>               <span class="n">attach</span> <span class="n">network</span> <span class="n">interface</span>
-<span class="p">...</span>
-</pre></div>
-
-
-<h3><em>Domain Management</em></h3>
-<p>Libvirt utiliza el término "dominio" para referirse a la máquina
-virtual que se ejecuta sobre el hipervisor, término adoptado de los
-sistemas de paravirtualización como Xen. Para obtener las órdenes
-disponibles para gestionar dominios:</p>
-<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="n">help</span> <span class="k">domain</span>
- <span class="k">Domain</span> <span class="n">Management</span> <span class="p">(</span><span class="n">help</span> <span class="n">keyword</span> <span class="s1">&#39;domain&#39;</span><span class="p">):</span>
-    <span class="n">attach</span><span class="o">-</span><span class="n">device</span>                  <span class="n">attach</span> <span class="n">device</span> <span class="k">from</span> <span class="n">an</span> <span class="n">XML</span> <span class="n">file</span>
-    <span class="n">attach</span><span class="o">-</span><span class="n">disk</span>                    <span class="n">attach</span> <span class="n">disk</span> <span class="n">device</span>
-    <span class="n">attach</span><span class="o">-</span><span class="n">interface</span>               <span class="n">attach</span> <span class="n">network</span> <span class="n">interface</span>
-<span class="p">...</span>
-</pre></div>
-
-
-<h2>Pool por defecto</h2>
-<p>Si no existe, creamos un pool por defecto en /var/lib/libvirt/images con el fichero default-pool.xml</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">&#39;dir&#39;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;name&gt;</span>default<span class="nt">&lt;/name&gt;</span>
-  <span class="nt">&lt;uuid&gt;</span>...<span class="nt">&lt;/uuid&gt;</span>
-  <span class="nt">&lt;source&gt;</span>
-  <span class="nt">&lt;/source&gt;</span>
-  <span class="nt">&lt;target&gt;</span>
-    <span class="nt">&lt;path&gt;</span>/var/lib/libvirt/images<span class="nt">&lt;/path&gt;</span>
-    <span class="nt">&lt;permissions&gt;</span>
-      <span class="nt">&lt;mode&gt;</span>0755<span class="nt">&lt;/mode&gt;</span>
-      <span class="nt">&lt;owner&gt;</span>0<span class="nt">&lt;/owner&gt;</span>
-      <span class="nt">&lt;group&gt;</span>0<span class="nt">&lt;/group&gt;</span>
-    <span class="nt">&lt;/permissions&gt;</span>
-  <span class="nt">&lt;/target&gt;</span>
-<span class="nt">&lt;/pool&gt;</span>
-</pre></div>
-
-
-<p>Y lo añadimos con:</p>
-<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">pool</span><span class="o">-</span><span class="k">create</span> <span class="k">default</span><span class="o">-</span><span class="n">pool</span><span class="p">.</span><span class="n">xml</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+(<code>qemu:///session</code>) o …</p>
+                <a class="readmore" href="../virt/virsh.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -128,17 +97,14 @@ sistemas de virtualización como VMware ESXi o Hyper-V …</p>
 </footer><!-- /.post-info -->                <ol>
 <li>Tipos de virtualización. Características principales y comparativa de productos. <a href="https://aso.tinaja.es/doc/virtualizacion.pdf">virtualizacion.pdf</a></li>
 <li>Configuraciones de red en sistemas virtuales: NAT, bridge y route</li>
-<li>Almacenamiento local de máquinas virtuales<ol>
-<li>Ficheros</li>
-<li>Volúmenes lógicos</li>
-</ol>
-</li>
+<li>Almacenamiento en sistemas virtuales</li>
 <li>KVM<ol>
 <li><a href="../virt/libvirt.html">libvirt</a></li>
+<li><a href="../virt/virsh.html">virsh</a></li>
+<li>Herramientas útiles de libvirt: virt-install, virt-clone, virt-viewer</li>
 <li>Dispositivos paravirtualizados: virtio</li>
 <li>Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato</li>
-<li>Imágenes base con qcow2</li>
-<li>Instantáneas (Snapshots …</li></ol></li></ol>
+<li>Imágenes base …</li></ol></li></ol>
                 <a class="readmore" href="../virt/index.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>

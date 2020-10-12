@@ -27,20 +27,22 @@ curso son:
 1. `qemu+ssh:///system`: Acceso remoto privilegiado por ssh
 
 
-## Uso local de qemu-system
+## Uso local de `qemu:///system`
 
-La principal limitación del uso de la conexión qemu:///session es que
-el usuario normal no suele tener permisos para crear conexiones de
-red, por lo que se limita su uso de la red no privilegiada de qemu
+Una de las principales limitaciones del uso de la conexión
+`qemu:///session` es que el usuario normal no suele tener permisos para
+crear conexiones de red, por lo que se limita su uso de la red no
+privilegiada de qemu
 ([SLIRP](https://wiki.qemu.org/Documentation/Networking#User_Networking_.28SLIRP.29))
 que es útil para casos simples, pero que tiene bajo rendimiento y es
-poco configurable. Así que es muchas ocasiones, se utiliza la conexión
-qemu:///system, que es única para todo el sistema y que puede utilizar
-tanto el usuario `root` como cualquier miembro del grupo `libvirt`.
+poco configurable. Así que es muchas ocasiones, se utiliza la conexión 
+`qemu:///system`, que es única para todo el sistema y que puede
+utilizar tanto el usuario `root` como cualquier miembro del grupo
+`libvirt`.
 
-Por tanto, si queremos usar qemu-system localmente, debemos agregar
-nuestro usuario al grupo libvirt o usar libvirt directamente con el
-usuario root:
+Si queremos usar `qemu:///system` localmente, debemos agregar nuestro
+usuario al grupo libvirt o usar libvirt directamente con el usuario
+root:
 
 ```
 adduser <usuario> libvirt
@@ -65,6 +67,8 @@ permite validar los documentos antes de interactuar con la API. Los
 esquemas están disponibles en el propio repositorio de libvirt:
 
 [https://libvirt.org/git/?p=libvirt.git;a=tree;f=docs/schemas](https://libvirt.org/git/?p=libvirt.git;a=tree;f=docs/schemas)
+
+[Vídeo: Libvirt. Creación de una red NAT desde fichero XML](https://youtu.be/HyqEZEejmjM)
 
 ## Aplicaciones para usar libvirt
 

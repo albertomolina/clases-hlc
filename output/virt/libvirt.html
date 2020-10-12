@@ -49,18 +49,20 @@ curso son:</p>
 <li><code>qemu:///system</code>: Acceso local privilegiado</li>
 <li><code>qemu+ssh:///system</code>: Acceso remoto privilegiado por ssh</li>
 </ol>
-<h2>Uso local de qemu-system</h2>
-<p>La principal limitación del uso de la conexión qemu:///session es que
-el usuario normal no suele tener permisos para crear conexiones de
-red, por lo que se limita su uso de la red no privilegiada de qemu
+<h2>Uso local de <code>qemu:///system</code></h2>
+<p>Una de las principales limitaciones del uso de la conexión
+<code>qemu:///session</code> es que el usuario normal no suele tener permisos para
+crear conexiones de red, por lo que se limita su uso de la red no
+privilegiada de qemu
 (<a href="https://wiki.qemu.org/Documentation/Networking#User_Networking_.28SLIRP.29">SLIRP</a>)
 que es útil para casos simples, pero que tiene bajo rendimiento y es
-poco configurable. Así que es muchas ocasiones, se utiliza la conexión
-qemu:///system, que es única para todo el sistema y que puede utilizar
-tanto el usuario <code>root</code> como cualquier miembro del grupo <code>libvirt</code>.</p>
-<p>Por tanto, si queremos usar qemu-system localmente, debemos agregar
-nuestro usuario al grupo libvirt o usar libvirt directamente con el
-usuario root:</p>
+poco configurable. Así que es muchas ocasiones, se utiliza la conexión 
+<code>qemu:///system</code>, que es única para todo el sistema y que puede
+utilizar tanto el usuario <code>root</code> como cualquier miembro del grupo
+<code>libvirt</code>.</p>
+<p>Si queremos usar <code>qemu:///system</code> localmente, debemos agregar nuestro
+usuario al grupo libvirt o usar libvirt directamente con el usuario
+root:</p>
 <div class="highlight"><pre><span></span><span class="n">adduser</span> <span class="o">&lt;</span><span class="n">usuario</span><span class="o">&gt;</span> <span class="n">libvirt</span>
 </pre></div>
 
@@ -81,6 +83,7 @@ es que libvirt también proporciona los esquemas de los mismos, que
 permite validar los documentos antes de interactuar con la API. Los
 esquemas están disponibles en el propio repositorio de libvirt:</p>
 <p><a href="https://libvirt.org/git/?p=libvirt.git;a=tree;f=docs/schemas">https://libvirt.org/git/?p=libvirt.git;a=tree;f=docs/schemas</a></p>
+<p><a href="https://youtu.be/HyqEZEejmjM">Vídeo: Libvirt. Creación de una red NAT desde fichero XML</a></p>
 <h2>Aplicaciones para usar libvirt</h2>
 <p>Libvirt proporciona una API que puede ser utilizada por diferentes
 clientes CLI, GUI o web. Un listado no muy actualizado de estos
