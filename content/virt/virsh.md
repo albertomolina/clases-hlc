@@ -38,6 +38,18 @@ Grouped commands:
 ...
 ```
 
+* *Domain Management* Gestión y modificación de los dominios (MVs)
+* *Domain Monitoring* Parámetros de ejecución de los dominios
+* *Host and Hypervisor* Características del hipervisor
+* *Interface* Interfaces de red
+* *Network filter* Reglas de iptables
+* *Networking*
+* *Node device* Dispositivos físicos gestionados por los dominios
+* *Secret*
+* *Snapshot*
+* *Storage Pool* Gestión de los recursos de almacenamiento
+* *Storage Volume* Volúmenes
+
 ### *Domain Management*
 
 Libvirt utiliza el término "dominio" para referirse a la máquina
