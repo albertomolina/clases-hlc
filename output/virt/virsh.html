@@ -73,7 +73,7 @@ tipo:</p>
 <li><em>Storage Pool</em> Gestión de los recursos de almacenamiento</li>
 <li><em>Storage Volume</em> Volúmenes</li>
 </ul>
-<h3><em>Domain Management</em></h3>
+<h3>Órdenes disponibles para cada tipo</h3>
 <p>Libvirt utiliza el término "dominio" para referirse a la máquina
 virtual que se ejecuta sobre el hipervisor, término adoptado de los
 sistemas de paravirtualización como Xen. Para obtener las órdenes
@@ -87,20 +87,21 @@ disponibles para gestionar dominios:</p>
 </pre></div>
 
 
-<h2>Pool por defecto</h2>
-<p>Si no existe, creamos un pool por defecto en /var/lib/libvirt/images con el fichero default-pool.xml</p>
+<h2>Configuración inicial</h2>
+<p>Para la creación inicial de una máquina virtual necesitamos definir
+una red a la que pueda conectarse y un espacio en el que ubicar el
+dispositivo de almacenamiento principal.</p>
+<p>Libvirt denomina "pool" de forma genérica a un medio de almacenamiento
+disponible, independientemente de su naturaleza, así podemos tener
+como pool de almacenamiento un directorio, un grupo de volúmenes de
+LVM, un disco duro, un volumen gluster, etc.</p>
+<h3>Pool de almacenamiento por defecto</h3>
+<p>Si no existe, creamos un pool por defecto en <code>/var/lib/libvirt/images</code>
+con el fichero <code>default-pool.xml</code>:</p>
 <div class="highlight"><pre><span></span><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">&#39;dir&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;name&gt;</span>default<span class="nt">&lt;/name&gt;</span>
-  <span class="nt">&lt;uuid&gt;</span>...<span class="nt">&lt;/uuid&gt;</span>
-  <span class="nt">&lt;source&gt;</span>
-  <span class="nt">&lt;/source&gt;</span>
   <span class="nt">&lt;target&gt;</span>
     <span class="nt">&lt;path&gt;</span>/var/lib/libvirt/images<span class="nt">&lt;/path&gt;</span>
-    <span class="nt">&lt;permissions&gt;</span>
-      <span class="nt">&lt;mode&gt;</span>0755<span class="nt">&lt;/mode&gt;</span>
-      <span class="nt">&lt;owner&gt;</span>0<span class="nt">&lt;/owner&gt;</span>
-      <span class="nt">&lt;group&gt;</span>0<span class="nt">&lt;/group&gt;</span>
-    <span class="nt">&lt;/permissions&gt;</span>
   <span class="nt">&lt;/target&gt;</span>
 <span class="nt">&lt;/pool&gt;</span>
 </pre></div>

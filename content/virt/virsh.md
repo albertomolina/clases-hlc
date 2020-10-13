@@ -50,7 +50,7 @@ Grouped commands:
 * *Storage Pool* Gestión de los recursos de almacenamiento
 * *Storage Volume* Volúmenes
 
-### *Domain Management*
+### Órdenes disponibles para cada tipo
 
 Libvirt utiliza el término "dominio" para referirse a la máquina
 virtual que se ejecuta sobre el hipervisor, término adoptado de los
@@ -67,23 +67,27 @@ virsh help domain
 ```
 
 
-## Pool por defecto
+## Configuración inicial
 
-Si no existe, creamos un pool por defecto en /var/lib/libvirt/images con el fichero default-pool.xml
+Para la creación inicial de una máquina virtual necesitamos definir
+una red a la que pueda conectarse y un espacio en el que ubicar el
+dispositivo de almacenamiento principal.
+
+Libvirt denomina "pool" de forma genérica a un medio de almacenamiento
+disponible, independientemente de su naturaleza, así podemos tener
+como pool de almacenamiento un directorio, un grupo de volúmenes de
+LVM, un disco duro, un volumen gluster, etc.
+
+### Pool de almacenamiento por defecto
+
+Si no existe, creamos un pool por defecto en `/var/lib/libvirt/images`
+con el fichero `default-pool.xml`:
 
 ```
 <pool type='dir'>
   <name>default</name>
-  <uuid>...</uuid>
-  <source>
-  </source>
   <target>
     <path>/var/lib/libvirt/images</path>
-    <permissions>
-      <mode>0755</mode>
-      <owner>0</owner>
-      <group>0</group>
-    </permissions>
   </target>
 </pool>
 ```
