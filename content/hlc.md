@@ -11,12 +11,9 @@ Formativo Superior de Administración de Sistemas Informáticos en Red
 [IES Gonzalo Nazareno](https://dit.gonzalonazareno.org) de Dos
 Hermanas (Sevilla).
 
-En este sitio aparecen los contenidos auxiliares del mismo, ya que por
-la metodología eminentemente práctica del curso, el énfasis se
-pone en el aprendizaje tanto en el aula como en casa mediante
-prácticas en cada unidad de dificultad creciente, para lo que se
-utiliza el gestor de proyectos redmine, cuyo acceso está restringido a
-profesores y alumnos de nuestro centro.
+Este sitio se va a utilizar para alojar todos los materiales que se
+vayan desarrollando (presentaciones, listados de ejercicios, vídeos,
+etc.) para la docencia semipresencial durante el curso 2020/21.
 
 ## [Introducción](/intro/)
 
