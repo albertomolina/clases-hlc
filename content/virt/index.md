@@ -23,7 +23,11 @@ modified: 2019-09-21
 
 **Vídeos**
 
-* [Vídeo. libvirt. Creación de una red NAT desde fichero XML](https://youtu.be/HyqEZEejmjM)
+* [Configuración inicial](https://youtu.be/g9TxR-vH7vA)
+* [Definición y creación de redes con virsh](https://youtu.be/HKq1Z7ZgFRA)
+* [Definición del pool por defecto con virsh](https://youtu.be/0Tp2uzGU-8I)
+* [Manejo de volúmenes](https://youtu.be/w91tHGYfBtQ)
+* [Creación de una red NAT desde fichero XML](https://youtu.be/HyqEZEejmjM)
 
 **Ejercicios**
 
