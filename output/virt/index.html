@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
         <meta charset="utf-8" />
-        <title>Introducción a los sistemas virtuales</title>
+        <title>Introducción a los sistemas virtuales. Libvirt/QEMU/KVM</title>
         <link rel="stylesheet" href="../theme/css/main.css" />
 
         <!--[if IE]>
@@ -22,25 +22,28 @@
     <header>
       <h1 class="entry-title">
         <a href="../virt/index.html" rel="bookmark"
-           title="Permalink to Introducción a los sistemas virtuales">Introducción a los sistemas virtuales</a></h1>
+           title="Permalink to Introducción a los sistemas virtuales. Libvirt/QEMU/KVM">Introducción a los sistemas virtuales. Libvirt/QEMU/KVM</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
-        <span>sáb 21 septiembre 2019</span>
+        <span>jue 15 octubre 2020</span>
 
 </footer><!-- /.post-info -->      <ol>
 <li>Tipos de virtualización. Características principales y comparativa de productos. <a href="https://aso.tinaja.es/doc/virtualizacion.pdf">virtualizacion.pdf</a></li>
 <li>Configuraciones de red en sistemas virtuales: NAT, bridge y route</li>
-<li>Almacenamiento en sistemas virtuales</li>
 <li>KVM<ol>
 <li><a href="../virt/libvirt.html">libvirt</a></li>
 <li><a href="../virt/virsh.html">virsh</a></li>
 <li>Herramientas útiles de libvirt: virt-install, virt-clone, virt-viewer</li>
-<li>Dispositivos paravirtualizados: virtio</li>
+<li>Dispositivos virtualizados. virtio</li>
+<li>Almacenamiento:<ol>
 <li>Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato</li>
 <li>Imágenes base con qcow2</li>
 <li>Instantáneas (Snapshots)</li>
+</ol>
+</li>
+<li>Gestión de memoria. <em>Balloning</em> NUMA y KSM</li>
 <li>Gestión de MV: clonación, provisión y administración.</li>
 <li>Migración de MVs</li>
 </ol>

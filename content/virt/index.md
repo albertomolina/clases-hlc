@@ -1,19 +1,19 @@
-title: Introducción a los sistemas virtuales
+title: Introducción a los sistemas virtuales. Libvirt/QEMU/KVM
 slug: virt/index
-date: 2019-09-21
-modified: 2019-09-21
+date: 2020-10-15
 
 1. Tipos de virtualización. Características principales y comparativa de productos. [virtualizacion.pdf](https://aso.tinaja.es/doc/virtualizacion.pdf)
 1. Configuraciones de red en sistemas virtuales: NAT, bridge y route
-1. Almacenamiento en sistemas virtuales
 1. KVM
     1. [libvirt]({filename}./libvirt.md)
 	1. [virsh]({filename}./virsh.md)
 	1. Herramientas útiles de libvirt: virt-install, virt-clone, virt-viewer
-	1. Dispositivos paravirtualizados: virtio
-	1. Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato
-	1. Imágenes base con qcow2
-	1. Instantáneas (Snapshots)
+	1. Dispositivos virtualizados. virtio
+	1. Almacenamiento:
+	    1. Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato
+		1. Imágenes base con qcow2
+		1. Instantáneas (Snapshots)
+	1. Gestión de memoria. *Balloning* NUMA y KSM
 	1. Gestión de MV: clonación, provisión y administración.
 	1. Migración de MVs
 
