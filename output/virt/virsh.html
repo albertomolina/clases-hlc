@@ -95,6 +95,39 @@ dispositivo de almacenamiento principal.</p>
 disponible, independientemente de su naturaleza, así podemos tener
 como pool de almacenamiento un directorio, un grupo de volúmenes de
 LVM, un disco duro, un volumen gluster, etc.</p>
+<ul>
+<li><a href="https://youtu.be/g9TxR-vH7vA">Configuración inicial</a></li>
+<li><a href="https://youtu.be/HKq1Z7ZgFRA">Definición y creación de redes con virsh</a></li>
+<li><a href="https://youtu.be/0Tp2uzGU-8I">Definición del pool por defecto con virsh</a></li>
+<li><a href="https://youtu.be/w91tHGYfBtQ">Manejo de volúmenes</a></li>
+</ul>
+<h3>Red NAT por defecto</h3>
+<p>Si no existiese previamente, podemos crear una red de tipo NAT a la
+que denominaremos <code>default</code>, creando el fichero <code>net-default.xml</code> con
+el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nv">network</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">name</span><span class="o">&gt;</span><span class="nv">default</span><span class="o">&lt;/</span><span class="nv">name</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">forward</span> <span class="nv">mode</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">nat</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">nat</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">port</span> <span class="nv">start</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">1024</span><span class="s1">&#39;</span> <span class="k">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">65535</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">nat</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">forward</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">bridge</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virbr0</span><span class="s1">&#39;</span> <span class="nv">stp</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">on</span><span class="s1">&#39;</span> <span class="nv">delay</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="nv">ip</span> <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">192.168.122.1</span><span class="s1">&#39;</span> <span class="nv">netmask</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">255.255.255.0</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">dhcp</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">range</span> <span class="nv">start</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">192.168.122.2</span><span class="s1">&#39;</span> <span class="k">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">192.168.122.254</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">dhcp</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">ip</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nv">network</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>Que definimos y activamos con:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">net</span><span class="o">-</span><span class="n">define</span> <span class="n">net</span><span class="o">-</span><span class="k">default</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">net</span><span class="o">-</span><span class="k">start</span> <span class="k">default</span>
+</pre></div>
+
+
 <h3>Pool de almacenamiento por defecto</h3>
 <p>Si no existe, creamos un pool por defecto en <code>/var/lib/libvirt/images</code>
 con el fichero <code>default-pool.xml</code>:</p>
@@ -108,8 +141,108 @@ con el fichero <code>default-pool.xml</code>:</p>
 
 
 <p>Y lo añadimos con:</p>
-<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">pool</span><span class="o">-</span><span class="k">create</span> <span class="k">default</span><span class="o">-</span><span class="n">pool</span><span class="p">.</span><span class="n">xml</span>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">pool</span><span class="o">-</span><span class="n">define</span> <span class="k">default</span><span class="o">-</span><span class="n">pool</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">pool</span><span class="o">-</span><span class="k">start</span> <span class="k">default</span>
 </pre></div>
+
+
+<h3>Creación de un volumen qcow2 en el pool por defecto</h3>
+<p>Para crear un fichero de hasta 10 GiB de capacidad en un fichero en
+formato qcow2, definimos el fichero <code>vol1.xml</code>:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;volume</span> <span class="na">type=</span><span class="s">&#39;file&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;name&gt;</span>vol1.img<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;key&gt;</span>/var/lib/libvirt/images/vol1.img<span class="nt">&lt;/key&gt;</span>
+  <span class="nt">&lt;source&gt;</span>
+  <span class="nt">&lt;/source&gt;</span>
+  <span class="nt">&lt;allocation&gt;</span>0<span class="nt">&lt;/allocation&gt;</span>
+  <span class="nt">&lt;capacity</span> <span class="na">unit=</span><span class="s">&quot;G&quot;</span><span class="nt">&gt;</span>10<span class="nt">&lt;/capacity&gt;</span>
+  <span class="nt">&lt;target&gt;</span>
+    <span class="nt">&lt;path&gt;</span>/var/lib/libvirt/images/vol1.img<span class="nt">&lt;/path&gt;</span>
+    <span class="nt">&lt;format</span> <span class="na">type=</span><span class="s">&#39;qcow2&#39;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/target&gt;</span>
+<span class="nt">&lt;/volume&gt;</span>
+</pre></div>
+
+
+<p>Y lo agragamos al pool por defecto:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">vol</span><span class="o">-</span><span class="k">create</span> <span class="n">vol1</span><span class="p">.</span><span class="n">xml</span>
+</pre></div>
+
+
+<h3>Creación de un volumen con el contenido de un fichero de imagen</h3>
+<p>Supongamos que tenemos un fichero qcow2 que contiene la imagen de un
+sistema y que queremos agregarlo como un volumen a un pool. En primer
+lugar tendremos que ver el espacio ocupado por la imagen original:</p>
+<div class="highlight"><pre><span></span><span class="n">qemu</span><span class="o">-</span><span class="n">img</span> <span class="n">info</span> <span class="n">debian</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">openstack</span><span class="o">-</span><span class="n">amd64</span><span class="p">.</span><span class="n">qcow2</span> 
+<span class="n">image</span><span class="p">:</span> <span class="n">debian</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">openstack</span><span class="o">-</span><span class="n">amd64</span><span class="p">.</span><span class="n">qcow2</span>
+<span class="n">file</span> <span class="n">format</span><span class="p">:</span> <span class="n">qcow2</span>
+<span class="n">virtual</span> <span class="k">size</span><span class="p">:</span> <span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="k">G</span> <span class="p">(</span><span class="mi">2147483648</span> <span class="n">bytes</span><span class="p">)</span>
+<span class="n">disk</span> <span class="k">size</span><span class="p">:</span> <span class="mi">517</span><span class="n">M</span>
+<span class="n">cluster_size</span><span class="p">:</span> <span class="mi">65536</span>
+<span class="n">Format</span> <span class="k">specific</span> <span class="n">information</span><span class="p">:</span>
+    <span class="n">compat</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">10</span>
+    <span class="n">refcount</span> <span class="n">bits</span><span class="p">:</span> <span class="mi">16</span>
+</pre></div>
+
+
+<p>En este caso, tenemos una imagen de un sistema debian buster en un
+fichero qcow2 de 2G de tamaño virtual, por lo que creamos inicialmente
+un volumen de ese tamaño (podemos usar <code>vol-create-as</code> para definir
+los parámetros sin tener que escribir anteriormente el fichero XML:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">vol</span><span class="o">-</span><span class="k">create</span><span class="o">-</span><span class="k">as</span> <span class="c1">--format qcow2 --name buster \</span>
+<span class="c1">--capacity 2GiB --pool default</span>
+</pre></div>
+
+
+<p>Y copiamos el contenido del fichero original en el volumen:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">vol</span><span class="o">-</span><span class="n">upload</span> <span class="n">buster</span> <span class="err">\</span>
+<span class="n">debian</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">openstack</span><span class="o">-</span><span class="n">amd64</span><span class="p">.</span><span class="n">qcow2</span> <span class="c1">--pool default</span>
+</pre></div>
+
+
+<p>A continuación usaremos ese volumen para crear un dominio.</p>
+<h2>Creación de un dominio (máquina virtual)</h2>
+<p>Vamos a crear un dominio que utilice como unidad de almacenamiento
+principal el volumen creado anteriormente y que se conecte a la red
+'default', también añadiremos un dispositivo gráfico tipo VNC para
+conectarnos a una consola de forma remota utilizando este protocolo.</p>
+<p>Creamos el fichero <code>dominio1.xml</code> con el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;domain</span> <span class="na">type=</span><span class="s">&quot;kvm&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;name&gt;</span>dominio1<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;memory</span> <span class="na">unit=</span><span class="s">&quot;G&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/memory&gt;</span>
+  <span class="nt">&lt;vcpu&gt;</span>1<span class="nt">&lt;/vcpu&gt;</span>
+  <span class="nt">&lt;os&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">arch=</span><span class="s">&quot;x86_64&quot;</span><span class="nt">&gt;</span>hvm<span class="nt">&lt;/type&gt;</span>
+  <span class="nt">&lt;/os&gt;</span>
+  <span class="nt">&lt;devices&gt;</span>
+    <span class="nt">&lt;emulator&gt;</span>/usr/bin/kvm<span class="nt">&lt;/emulator&gt;</span>
+    <span class="nt">&lt;disk</span> <span class="na">type=</span><span class="s">&#39;file&#39;</span> <span class="na">device=</span><span class="s">&#39;disk&#39;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;driver</span> <span class="na">name=</span><span class="s">&#39;qemu&#39;</span> <span class="na">type=</span><span class="s">&#39;qcow2&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;source</span> <span class="na">file=</span><span class="s">&#39;/var/lib/libvirt/images/buster&#39;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;target</span> <span class="na">dev=</span><span class="s">&#39;vda&#39;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/disk&gt;</span>
+    <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">&quot;network&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;source</span> <span class="na">network=</span><span class="s">&quot;default&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;mac</span> <span class="na">address=</span><span class="s">&quot;52:54:00:86:c6:a9&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/interface&gt;</span>
+    <span class="nt">&lt;graphics</span> <span class="na">type=</span><span class="s">&#39;vnc&#39;</span> <span class="na">port=</span><span class="s">&#39;-1&#39;</span> <span class="na">autoport=</span><span class="s">&#39;yes&#39;</span> <span class="na">listen=</span><span class="s">&#39;0.0.0.0&#39;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/devices&gt;</span>
+<span class="nt">&lt;/domain&gt;</span>
+</pre></div>
+
+
+<p>Lo definimos en el hipervisor:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">define</span> <span class="n">dominio1</span><span class="p">.</span><span class="n">xml</span>
+</pre></div>
+
+
+<p>Y arrancamos la máquina virtual:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="k">start</span> <span class="n">dominio1</span>
+</pre></div>
+
+
+<p>Podremos acceder a través de ssh si conocemos la contraseña o a una
+consola mediante VNC.</p>
     </div><!-- /.entry-content -->
 
   </article>
