@@ -35,6 +35,7 @@ date: 2020-10-15
 
 **Recursos útiles**
 
+* [República web: Virtualización y contenedores con Sergio López](https://republicaweb.es/podcast/virtualizacion-y-contenedores-con-sergio-lopez/)
 * [Gunnar Wolf: Estrategias de virtualización con Linux](www.gwolf.org/files/virt.pdf)
 * [Acceder a una imagen de disco KVM ubicada en un volumen lógico](https://albertomolina.wordpress.com/2009/12/14/acceder-a-una-imagen-de-disco-kvm-ubicada-en-un-volumen-logico/)
 * [NUMA-Aware Kernel SamePage Merging (KSM)](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_tuning_and_optimization_guide/sect-virtualization_tuning_optimization_guide-numa-numa_ksm)
