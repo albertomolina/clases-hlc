@@ -82,6 +82,7 @@ LVM, un disco duro, un volumen gluster, etc.
 * [Definición y creación de redes con virsh](https://youtu.be/HKq1Z7ZgFRA)
 * [Definición del pool por defecto con virsh](https://youtu.be/0Tp2uzGU-8I)
 * [Manejo de volúmenes](https://youtu.be/w91tHGYfBtQ)
+* [Creación de dominios](https://youtu.be/Ugz7TN6gUO0)
 
 ### Red NAT por defecto
 

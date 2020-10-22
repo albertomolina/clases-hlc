@@ -27,6 +27,7 @@ date: 2020-10-15
 * [Definición y creación de redes con virsh](https://youtu.be/HKq1Z7ZgFRA)
 * [Definición del pool por defecto con virsh](https://youtu.be/0Tp2uzGU-8I)
 * [Manejo de volúmenes](https://youtu.be/w91tHGYfBtQ)
+* [Definición de un dominio con virsh](https://youtu.be/Ugz7TN6gUO0)
 * [Creación de una red NAT desde fichero XML](https://youtu.be/HyqEZEejmjM)
 
 **Ejercicios**
