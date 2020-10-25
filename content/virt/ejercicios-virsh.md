@@ -42,6 +42,7 @@ date: 2020-10-12
 1. Crea una máquina virtual que utilice controladores `virtio` para el
    dispositivo de almacenamiento y la interfaz de red.
 
+
 ## Almacenamiento
 
 1. Crea dos máquinas virtuales que utilicen la misma imagen base. No
@@ -61,4 +62,8 @@ date: 2020-10-12
    herramienta `guestfish` para redimensionar también el sistema de
    ficheros definido dentro de la imagen.
 
+1. Monta la imagen en formato raw con ayuda del módulo del kérnel
+   `loop` y compruba que puedes realizar cualquier modificación sobre
+   la imagen montada. Desmonta la imagen, arranca la máquina virtual y
+   verifica las modificaciones realizadas.
 	 
