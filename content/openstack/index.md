@@ -12,6 +12,7 @@ modified: 2019-09-21
 
 **Vídeos**
 
+* [OpenStack. Crear una instancia desde volumen](https://youtu.be/4rgZM06BSrI)
 * [openstackclient. Instalación y uso básico](https://youtu.be/qjvWtvgo8FU)
 * [OpenStack. Deshabilitar seguridad de un puerto](https://youtu.be/jqfILWzHrS0)
 
