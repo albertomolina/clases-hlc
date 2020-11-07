@@ -8,7 +8,7 @@ date: 2020-10-15
     1. [libvirt]({filename}./libvirt.md)
 	1. [virsh]({filename}./virsh.md)
 	1. [Herramientas útiles de libvirt: virt-install, virt-clone, virt-viewer]({filename}./virtinst.md)
-	1. Dispositivos virtualizados. virtio
+	1. [Dispositivos virtualizados. virtio]({filename}./virtio.md)
 	1. Almacenamiento:
 	    1. Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato
 		1. Imágenes base con qcow2

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="utf-8" />
+        <title>virtio</title>
+        <link rel="stylesheet" href="../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../">Introducción al Cloud Computing </a></h1>
+                <nav><ul>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../virt/virtio.html" rel="bookmark"
+           title="Permalink to virtio">virtio</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>sáb 07 noviembre 2020</span>
+
+</footer><!-- /.post-info -->      <p>Virtio ofrece los denominados dispositivos paravirtualizados para
+procesos de E/S, que permiten el acceso privilegiado a recursos del
+anfitrión. Los dispositivos virtio más habituales son utilizados para
+dispositivos de bloque, interfaces de red, <em>memory balloning</em> y
+generadores de números aleatorios.</p>
+<p>La inclusión de dispositivos virtio permite que el sistema de
+virtualización KVM compita en rendimiento con sistemas
+paravirtualizados.</p>
+<p>Es necesario que el kérnel del sistema operativo del huésped incluya
+soporte para estos dispositivos paravirtualizados, en el caso del
+kérnel linux este soporte se realiza a través de los siguientes
+componentes:</p>
+<div class="highlight"><pre><span></span><span class="n">CONFIG_BLK_MQ_VIRTIO</span>
+<span class="n">CONFIG_VIRTIO_VSOCKETS</span>
+<span class="n">CONFIG_VIRTIO_VSOCKETS_COMMON</span>
+<span class="n">CONFIG_NET_9P_VIRTIO</span>
+<span class="n">CONFIG_VIRTIO_BLK</span>
+<span class="n">CONFIG_SCSI_VIRTIO</span>
+<span class="n">CONFIG_VIRTIO_NET</span>
+<span class="n">CONFIG_VIRTIO_CONSOLE</span>
+<span class="n">CONFIG_HW_RANDOM_VIRTIO</span>
+<span class="n">CONFIG_DRM_VIRTIO_GPU</span>
+<span class="n">CONFIG_VIRTIO</span>
+<span class="n">CONFIG_VIRTIO_MENU</span>
+<span class="n">CONFIG_VIRTIO_PCI</span>
+<span class="n">CONFIG_VIRTIO_PCI_LEGACY</span>
+<span class="n">CONFIG_VIRTIO_PMEM</span>
+<span class="n">CONFIG_VIRTIO_BALLOON</span>
+<span class="n">CONFIG_VIRTIO_MEM</span>
+<span class="n">CONFIG_VIRTIO_INPUT</span>
+<span class="n">CONFIG_VIRTIO_MMIO</span>
+<span class="n">CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES</span>
+<span class="n">CONFIG_RPMSG_VIRTIO</span>
+<span class="n">CONFIG_VIRTIO_FS</span>
+<span class="n">CONFIG_CRYPTO_DEV_VIRTIO</span>
+</pre></div>
+
+
+<h2>Dispositivos virtio en Windows</h2>
+<p>El sistema operativo Windows no ofrece soporte nativo para
+dispositivos virtio (a pesar de que Microsoft ama a Linux), pero el
+proyecto <a href="https://github.com/virtio-win">virtio-win</a> que es ajeno a
+Microsoft, proporciona controladores para estos dispositivos.</p>
+<p>El proyecto Fedora ofrece una ISO-9660 para poder agregar estos
+controladores de forma sencilla durante la instalación de una máquina
+virtual con Windows: <a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso">virtion-win.iso</a>.</p>
+<h2>Dispositivos de bloque</h2>
+<p>En lugar de emular un dispositivo IDE o SATA, es mucho más eficiente
+utilizar un dispositivo virtio para los dispositivos de bloque, por
+ejemplo:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;disk</span> <span class="na">type=</span><span class="s">&#39;file&#39;</span> <span class="na">device=</span><span class="s">&#39;disk&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;driver</span> <span class="na">name=</span><span class="s">&#39;qemu&#39;</span> <span class="na">type=</span><span class="s">&#39;qcow2&#39;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;source</span> <span class="na">file=</span><span class="s">&#39;disco.qcow2&#39;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;target</span> <span class="na">dev=</span><span class="s">&#39;vda&#39;</span> <span class="na">bus=</span><span class="s">&#39;virtio&#39;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/disk&gt;</span>
+</pre></div>
+
+
+<h2>Dispositivos de red</h2>
+<p>Es posible emular dispositivos de red Fast-Ethernet (<code>rtl-8139</code>) o
+Gigabit Ethernet (<code>e1000</code>), pero se consigue un rendimiento mucho
+mayor con dispositivos de red virtio:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">&#39;bridge&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;mac</span> <span class="na">address=</span><span class="s">&#39;52:54:00:5c:55:0b&#39;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;source</span> <span class="na">bridge=</span><span class="s">&#39;br0&#39;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;model</span> <span class="na">type=</span><span class="s">&#39;virtio&#39;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/interface&gt;</span>
+</pre></div>
+
+
+<h2><em>Memory Balloning</em></h2>
+<p>Mecanismo que permite modificar al vuelo la cantidad de memoria que se
+proporciona a la máquina virtual en función de las necesidades del
+anfitrión (como si de un globo que se infla o desinfla se tratase, de
+ahí el nombre).</p>
+<p>El dispositivo no necesita parámetros adicionales:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;memballoon</span> <span class="na">model=</span><span class="s">&#39;virtio&#39;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/memballoon&gt;</span>
+</pre></div>
+
+
+<h2>Dispositivo de números aleatorios</h2>
+<p>La generación de números aleatorios es un problema habitual en las
+máquinas virtuales, que carecen inicialmente de dispositivos físicos
+que los proporcionen, como sí tienen las máquinas físicas a través de
+dispositivos específicos en sus placas base. Virtio permite la
+utilización de estos dispositivos en máquinass virtuales, evitando
+tener que usar otras soluciones de software menos eficaces.</p>
+<p><code>rng:</code> Random Number Generator</p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nv">rng</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">backend</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">random</span><span class="s1">&#39;</span><span class="o">&gt;/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">urandom</span><span class="o">&lt;/</span><span class="nv">backend</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nv">rng</span><span class="o">&gt;</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
