@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="utf-8" />
+        <title>Ejercicios de virtinst</title>
+        <link rel="stylesheet" href="../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../">Introducción al Cloud Computing </a></h1>
+                <nav><ul>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../virt/ejercicios-virtinst.html" rel="bookmark"
+           title="Permalink to Ejercicios de virtinst">Ejercicios de virtinst</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>sáb 07 noviembre 2020</span>
+
+</footer><!-- /.post-info -->      <h2>Utilización de herramientas de virtinst</h2>
+<ol>
+<li>
+<p>Crea una máquina virtual conectada al bridge exterior de tu máquina
+(o a virbr0 si no tuvieras bridge exterior) utilizando <code>virt-install</code>.</p>
+</li>
+<li>
+<p>Clona la máquina virtual creada en el punto anterior utilizando
+<code>virt-clone</code>.</p>
+</li>
+<li>
+<p>Edita la máquina virtual creada en el punto anterior (<code>virsh -c
+... edit &lt;dominio&gt;</code>) y elimina todos los dispositivos que consideres
+innecesarios. Vuelve a arrancarla y comprubea que no existen los
+dispositivos eliminados.</p>
+</li>
+</ol>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

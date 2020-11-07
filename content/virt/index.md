@@ -33,6 +33,9 @@ date: 2020-10-15
 **Ejercicios**
 
 * [Utilización de virsh]({filename}./ejercicios-virsh.md)
+* [virtinst]({filename}./ejercicios-virtinst.md)
+* [virtio]({filename}./ejercicios-virtio.md)
+* [Almacenamiento]({filename}./ejercicios-almacenamiento.md)
 
 **Recursos útiles**
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="utf-8" />
+        <title>Ejercicios de almacenamiento</title>
+        <link rel="stylesheet" href="../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../">Introducción al Cloud Computing </a></h1>
+                <nav><ul>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../virt/ejercicios-almacenamiento.html" rel="bookmark"
+           title="Permalink to Ejercicios de almacenamiento">Ejercicios de almacenamiento</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>sáb 07 noviembre 2020</span>
+
+</footer><!-- /.post-info -->      <h2>Almacenamiento</h2>
+<ol>
+<li>
+<p>Crea dos máquinas virtuales que utilicen la misma imagen base. No
+   es necesario que los dispositivos de almacenamientos de esas
+   máquinas estén definidos como volúmenes de ningún "pool".</p>
+</li>
+<li>
+<p>Transforma una de las imágenes del ejercicio anterior a formato
+   raw. Realiza las modificaciones necesarias en la definición de la
+   máquina virtual (<code>virsh edit &lt;maquina&gt;</code>), para que pueda seguir
+   funcionando con el nuevo formato de imagen.</p>
+</li>
+<li>
+<p>Realiza un "snapshot" de la máquina virtual definida sobre un
+   volumen lógico y crea una nueva máquina virtual a partir del
+   "snapshot".</p>
+</li>
+<li>
+<p>Redimensiona la imagen en formato raw, añadiendo 1 GiB y utiliza la
+   herramienta <code>guestfish</code> para redimensionar también el sistema de
+   ficheros definido dentro de la imagen.</p>
+</li>
+<li>
+<p>Monta la imagen en formato raw con ayuda del módulo del kérnel
+   <code>loop</code> y compruba que puedes realizar cualquier modificación sobre
+   la imagen montada. Desmonta la imagen, arranca la máquina virtual y
+   verifica las modificaciones realizadas.</p>
+</li>
+</ol>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
