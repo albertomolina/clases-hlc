@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
         <meta charset="utf-8" />
-        <title>Introducción al Cloud Computing - virt</title>
+        <title>virtinst</title>
         <link rel="stylesheet" href="../theme/css/main.css" />
 
         <!--[if IE]>
@@ -17,14 +17,19 @@
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../virt/virtinst.html" rel="bookmark"
+           title="Permalink to virtinst">virtinst</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="../virt/virtinst.html">virtinst</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>sáb 07 noviembre 2020</span>
 
-</footer><!-- /.post-info --><p>El paquete virtinst contiene una serie de programas auxiliares de más
+</footer><!-- /.post-info -->      <p>El paquete virtinst contiene una serie de programas auxiliares de más
 alto nivel que virsh que nos pueden ayudar a realizar determinadas
 tareas:</p>
 <div class="highlight"><pre><span></span><span class="n">dpkg</span> <span class="o">-</span><span class="n">L</span> <span class="n">virtinst</span><span class="o">|</span><span class="n">grep</span> <span class="n">bin</span><span class="o">/</span>
@@ -243,103 +248,11 @@ principal ventaja de virt-viewer es que utiliza la API de libvirt para
 averiguar si la consola está usando VNC o SPICE y el puerto al que
 conectarse:</p>
 <div class="highlight"><pre><span></span><span class="n">virt</span><span class="o">-</span><span class="n">viewer</span> <span class="n">dominio2</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+</pre></div>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../virt/index.html" rel="bookmark"
-                           title="Permalink to Introducción a los sistemas virtuales. Libvirt/QEMU/KVM">Introducción a los sistemas virtuales. Libvirt/QEMU/KVM</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>jue 15 octubre 2020</span>
-
-</footer><!-- /.post-info -->                <ol>
-<li>Tipos de virtualización. Características principales y comparativa de productos. <a href="https://aso.tinaja.es/doc/virtualizacion.pdf">virtualizacion.pdf</a></li>
-<li>Configuraciones de red en sistemas virtuales: NAT, bridge y route</li>
-<li>KVM<ol>
-<li><a href="../virt/libvirt.html">libvirt</a></li>
-<li><a href="../virt/virsh.html">virsh</a></li>
-<li>Herramientas útiles de libvirt: virt-install, virt-clone, virt-viewer</li>
-<li>Dispositivos virtualizados. virtio</li>
-<li>Almacenamiento:<ol>
-<li>Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato</li>
-<li>Imágenes base con qcow2</li>
-<li>Instantáneas …</li></ol></li></ol></li></ol>
-                <a class="readmore" href="../virt/index.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../virt/ejercicios.html" rel="bookmark"
-                           title="Permalink to Ejercicios de virsh">Ejercicios de virsh</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>lun 12 octubre 2020</span>
-
-</footer><!-- /.post-info -->                <h2>Configuración inicial de <code>qemu:///system</code></h2>
-<ol>
-<li>
-<p>Si no existiene la red default, agrega una red tipo NAT con el
-   direccionamiento <code>192.168.122.0/24</code> que utilice el bridge interno
-   <code>virbr0</code></p>
-</li>
-<li>
-<p>Si no existiese el directorio de almacenamiento por defecto, crea
-   un volumen lógico en tu sistema y móntalo de forma …</p></li></ol>
-                <a class="readmore" href="../virt/ejercicios.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../virt/virsh.html" rel="bookmark"
-                           title="Permalink to virsh">virsh</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>mar 06 octubre 2020</span>
-
-</footer><!-- /.post-info -->                <p>Virsh es una shell completa para gestionar la API de libvirt. Se puede
-usar de forma interactiva o no, pasándole o no directamente las
-órdenes correspondientes.</p>
-<h2>Conexión al hipervisor</h2>
-<p>En el caso de utilizar qemu-kvm localmente, podemos establecer una
-conexión no privilegiada con cada usuario del sistema
-(<code>qemu:///session</code>) o …</p>
-                <a class="readmore" href="../virt/virsh.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../virt/libvirt.html" rel="bookmark"
-                           title="Permalink to Libvirt">Libvirt</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>lun 05 octubre 2020</span>
-
-</footer><!-- /.post-info -->                <p>Libvirt proporciona una API genérica, un demonio y un conjunto de
-herramientas de gestión para diferentes sistemas de virtualización,
-en particular los sistemas de virtualización nativos de linux: KVM,
-LXC o Xen. pero es posible también manejar a través de libvirt otros
-sistemas de virtualización como VMware ESXi o Hyper-V …</p>
-                <a class="readmore" href="../virt/libvirt.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-            </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
         </section><!-- /#extras -->
 

@@ -20,11 +20,246 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../virt/index.html">Introducción a los sistemas virtuales. Libvirt/QEMU/KVM</a></h1>
+                    <h1 class="entry-title"><a href="../virt/virtinst.html">virtinst</a></h1>
+<footer class="post-info">
+        <span>sáb 07 noviembre 2020</span>
+
+</footer><!-- /.post-info --><p>El paquete virtinst contiene una serie de programas auxiliares de más
+alto nivel que virsh que nos pueden ayudar a realizar determinadas
+tareas:</p>
+<div class="highlight"><pre><span></span><span class="n">dpkg</span> <span class="o">-</span><span class="n">L</span> <span class="n">virtinst</span><span class="o">|</span><span class="n">grep</span> <span class="n">bin</span><span class="o">/</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">clone</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="k">convert</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">install</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">xml</span>
+</pre></div>
+
+
+<p>En lugar de manejar directamente ficheros XML, podemos interactuar con
+la API de libvirt con un programa de línea de comandos al que le
+pasamos las opciones como parámetros.</p>
+<h2>virt-install</h2>
+<p>Este programa se utiliza para realizar una instalación inicial de una
+máquina virtual, típicamente incluyendo como parámetros una imagen
+para el dispositivo de almacenamiento de la nueva máquina virtual y un
+recurso para instalarla (una imagen ISO-9660, PXE, etc.).</p>
+<p>Un ejemplo de instalación de una máquina virtual, con un core virtual,
+1024 MiB de RAM, que se conecte a la red <code>default</code>, cree un volumen
+de 10GiB en el "pool" <code>default</code> y utilice la imagen ISO 9660 netinst
+de Debian 10, sería el siguiente:</p>
+<div class="highlight"><pre><span></span><span class="nv">virt</span><span class="o">-</span><span class="nv">install</span> <span class="o">--</span><span class="k">connect</span> <span class="nv">qemu</span>:<span class="o">///</span><span class="nv">system</span> \
+<span class="o">--</span><span class="nv">cdrom</span> <span class="o">~/</span><span class="nv">ISOS</span><span class="o">/</span><span class="nv">debian</span><span class="o">-</span><span class="mi">10</span>.<span class="mi">6</span>.<span class="mi">0</span><span class="o">-</span><span class="nv">amd64</span><span class="o">-</span><span class="nv">netinst</span>.<span class="nv">iso</span> \
+<span class="o">--</span><span class="nv">disk</span> <span class="nv">size</span><span class="o">=</span><span class="mi">10</span> \
+<span class="o">--</span><span class="nv">network</span> <span class="nv">bridge</span><span class="o">=</span><span class="nv">virbr0</span> \
+<span class="o">--</span><span class="nv">name</span> <span class="nv">dominio2</span> \
+<span class="o">--</span><span class="nv">memory</span> <span class="mi">1024</span> \
+<span class="o">--</span><span class="nv">vcpus</span> <span class="mi">1</span>
+</pre></div>
+
+
+<p>Se abrirá automáticamente una ventana que se conectará a la consola
+(<code>virt-viewer</code>, a través de la cual podremos continuar una instalación
+convencional. Al finalizar la instalación, tendremos un nuevo dominio
+definido en libvirt:</p>
+<div class="highlight"><pre><span></span><span class="n">virsh</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="n">list</span> <span class="c1">--all</span>
+ <span class="n">Id</span>   <span class="n">Name</span>        <span class="k">State</span>
+<span class="c1">----------------------------</span>
+ <span class="o">-</span>    <span class="n">dominio1</span>    <span class="n">shut</span> <span class="k">off</span>
+ <span class="o">-</span>    <span class="n">dominio2</span>    <span class="n">shut</span> <span class="k">off</span>
+</pre></div>
+
+
+<p><code>virt-install</code> crea un dominio con muchos parámetros predefinidos, que
+si no especificamos se asumen por defecto, como podemos ver si
+volcamos el XML creado:</p>
+<div class="highlight"><pre><span></span><span class="nv">virsh</span> <span class="o">-</span><span class="nv">c</span> <span class="nv">qemu</span>:<span class="o">///</span><span class="nv">system</span> <span class="nv">dumpxml</span> <span class="nv">dominio2</span> 
+<span class="o">&lt;</span><span class="nv">domain</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">kvm</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">name</span><span class="o">&gt;</span><span class="nv">dominio2</span><span class="o">&lt;/</span><span class="nv">name</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">uuid</span><span class="o">&gt;</span><span class="nv">dbcda448</span><span class="o">-</span><span class="mi">4</span><span class="nv">d29</span><span class="o">-</span><span class="mi">494</span><span class="nv">b</span><span class="o">-</span><span class="mi">8804</span><span class="o">-</span><span class="nv">d5e29375b026</span><span class="o">&lt;/</span><span class="nv">uuid</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">metadata</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">libosinfo</span>:<span class="nv">libosinfo</span> <span class="nv">xmlns</span>:<span class="nv">libosinfo</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">http://libosinfo.org/xmlns/libvirt/domain/1.0</span><span class="s2">&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">libosinfo</span>:<span class="nv">os</span> <span class="nv">id</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">http://debian.org/debian/10</span><span class="s2">&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">libosinfo</span>:<span class="nv">libosinfo</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">metadata</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">memory</span> <span class="nv">unit</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">KiB</span><span class="s1">&#39;</span><span class="o">&gt;</span><span class="mi">524288</span><span class="o">&lt;/</span><span class="nv">memory</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">currentMemory</span> <span class="nv">unit</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">KiB</span><span class="s1">&#39;</span><span class="o">&gt;</span><span class="mi">524288</span><span class="o">&lt;/</span><span class="nv">currentMemory</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">vcpu</span> <span class="nv">placement</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">static</span><span class="s1">&#39;</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="nv">vcpu</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">os</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">type</span> <span class="nv">arch</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">x86_64</span><span class="s1">&#39;</span> <span class="nv">machine</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pc-q35-3.1</span><span class="s1">&#39;</span><span class="o">&gt;</span><span class="nv">hvm</span><span class="o">&lt;/</span><span class="nv">type</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">boot</span> <span class="nv">dev</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">cdrom</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">boot</span> <span class="nv">dev</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">hd</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">os</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">features</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">acpi</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">apic</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">vmport</span> <span class="nv">state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">off</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">features</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">cpu</span> <span class="nv">mode</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">host-model</span><span class="s1">&#39;</span> <span class="nv">check</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">partial</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">fallback</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">allow</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">cpu</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">clock</span> <span class="nv">offset</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">utc</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">timer</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">rtc</span><span class="s1">&#39;</span> <span class="nv">tickpolicy</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">catchup</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">timer</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pit</span><span class="s1">&#39;</span> <span class="nv">tickpolicy</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">delay</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">timer</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">hpet</span><span class="s1">&#39;</span> <span class="nv">present</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">no</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">clock</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">on_poweroff</span><span class="o">&gt;</span><span class="nv">destroy</span><span class="o">&lt;/</span><span class="nv">on_poweroff</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">on_reboot</span><span class="o">&gt;</span><span class="nv">restart</span><span class="o">&lt;/</span><span class="nv">on_reboot</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">on_crash</span><span class="o">&gt;</span><span class="nv">destroy</span><span class="o">&lt;/</span><span class="nv">on_crash</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">pm</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">suspend</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">mem</span> <span class="nv">enabled</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">no</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">suspend</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">disk</span> <span class="nv">enabled</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">no</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">pm</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nv">devices</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">emulator</span><span class="o">&gt;/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">qemu</span><span class="o">-</span><span class="nv">system</span><span class="o">-</span><span class="nv">x86_64</span><span class="o">&lt;/</span><span class="nv">emulator</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">disk</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">file</span><span class="s1">&#39;</span> <span class="nv">device</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">disk</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">driver</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">qemu</span><span class="s1">&#39;</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">qcow2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">source</span> <span class="nv">file</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">/MVs/libvirt/images/dominio2.qcow2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">dev</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">vda</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x04</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">disk</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">disk</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">file</span><span class="s1">&#39;</span> <span class="nv">device</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">cdrom</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">driver</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">qemu</span><span class="s1">&#39;</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">raw</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">dev</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">sda</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">sata</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">readonly</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">drive</span><span class="s1">&#39;</span> <span class="nv">controller</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">target</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">unit</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">disk</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">usb</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">qemu-xhci</span><span class="s1">&#39;</span> <span class="nv">ports</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">15</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">sata</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x1f</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio-serial</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x03</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">1</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">chassis</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">1</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x10</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span> <span class="nv">multifunction</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">on</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">2</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">chassis</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">2</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x11</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x1</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">3</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">chassis</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">3</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x12</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">4</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">chassis</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">4</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x13</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x3</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">5</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">chassis</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">5</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x14</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x4</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">6</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">chassis</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">6</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x15</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x5</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">controller</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">index</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">7</span><span class="s1">&#39;</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pcie-root-port</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">chassis</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">7</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x16</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x02</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x6</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">controller</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">interface</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">bridge</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">mac</span> <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">52:54:00:be:7c:d3</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">source</span> <span class="nv">bridge</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virbr0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x01</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">interface</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">serial</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pty</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">isa-serial</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">isa-serial</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;/</span><span class="nv">target</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">serial</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">console</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pty</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">serial</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">console</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">channel</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">unix</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">org.qemu.guest_agent.0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio-serial</span><span class="s1">&#39;</span> <span class="nv">controller</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">1</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">channel</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">channel</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">spicevmc</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">target</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span> <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">com.redhat.spice.0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio-serial</span><span class="s1">&#39;</span> <span class="nv">controller</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">channel</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">input</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">tablet</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">usb</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">usb</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">1</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">input</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">input</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">mouse</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">ps2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">input</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">keyboard</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">ps2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nv">graphics</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">spice</span><span class="s1">&#39;</span> <span class="nv">autoport</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">yes</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">listen</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">address</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">image</span> <span class="nv">compression</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">off</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">graphics</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">sound</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">ich9</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x1b</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">sound</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">video</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">model</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">qxl</span><span class="s1">&#39;</span> <span class="nv">ram</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">65536</span><span class="s1">&#39;</span> <span class="nv">vram</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">65536</span><span class="s1">&#39;</span> <span class="nv">vgamem</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">16384</span><span class="s1">&#39;</span> <span class="nv">heads</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">1</span><span class="s1">&#39;</span> <span class="nv">primary</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">yes</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x01</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">video</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">redirdev</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">usb</span><span class="s1">&#39;</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">spicevmc</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">usb</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">2</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">redirdev</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">redirdev</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">usb</span><span class="s1">&#39;</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">spicevmc</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">usb</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0</span><span class="s1">&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">3</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">redirdev</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">memballoon</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x05</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">memballoon</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nv">rng</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">backend</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">random</span><span class="s1">&#39;</span><span class="o">&gt;/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">urandom</span><span class="o">&lt;/</span><span class="nv">backend</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">address</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">pci</span><span class="s1">&#39;</span> <span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0000</span><span class="s1">&#39;</span> <span class="nv">bus</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x06</span><span class="s1">&#39;</span> <span class="nv">slot</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x00</span><span class="s1">&#39;</span> <span class="nv">function</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">0x0</span><span class="s1">&#39;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">rng</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="nv">devices</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nv">domain</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<h2>virt-clone</h2>
+<p>Herramienta que nos permite clonar un dominio que ya esté definido,
+pero que en esos momentos no puede estar arrancado:</p>
+<div class="highlight"><pre><span></span><span class="n">virt</span><span class="o">-</span><span class="n">clone</span> <span class="o">-</span><span class="k">c</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="k">system</span> <span class="err">\</span>
+<span class="c1">--original dominio2 \</span>
+<span class="c1">--name dominio3 \</span>
+<span class="c1">--auto-clone </span>
+</pre></div>
+
+
+<h2>virt-convert</h2>
+<p>Herramienta para transformar máquinas virtuales de otros formatos (vmx
+o ovf) a libvirt.</p>
+<h2>virt-viewer</h2>
+<p>Herramienta para visualizar la consola de una máquina virtual. La
+principal ventaja de virt-viewer es que utiliza la API de libvirt para
+averiguar si la consola está usando VNC o SPICE y el puerto al que
+conectarse:</p>
+<div class="highlight"><pre><span></span><span class="n">virt</span><span class="o">-</span><span class="n">viewer</span> <span class="n">dominio2</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../virt/index.html" rel="bookmark"
+                           title="Permalink to Introducción a los sistemas virtuales. Libvirt/QEMU/KVM">Introducción a los sistemas virtuales. Libvirt/QEMU/KVM</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>jue 15 octubre 2020</span>
 
-</footer><!-- /.post-info --><ol>
+</footer><!-- /.post-info -->                <ol>
 <li>Tipos de virtualización. Características principales y comparativa de productos. <a href="https://aso.tinaja.es/doc/virtualizacion.pdf">virtualizacion.pdf</a></li>
 <li>Configuraciones de red en sistemas virtuales: NAT, bridge y route</li>
 <li>KVM<ol>
@@ -35,47 +270,10 @@
 <li>Almacenamiento:<ol>
 <li>Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato</li>
 <li>Imágenes base con qcow2</li>
-<li>Instantáneas (Snapshots)</li>
-</ol>
-</li>
-<li>Gestión de memoria. <em>Balloning</em> NUMA y KSM</li>
-<li>Gestión de MV: clonación, provisión y administración.</li>
-<li>Migración de MVs</li>
-</ol>
-</li>
-</ol>
-<p><strong>Documentación</strong></p>
-<ul>
-<li><a href="https://aso.tinaja.es/doc/virtualizacion.pdf">virtualizacion.pdf</a></li>
-</ul>
-<p><strong>Vídeos</strong></p>
-<ul>
-<li><a href="https://youtu.be/g9TxR-vH7vA">Configuración inicial</a></li>
-<li><a href="https://youtu.be/HKq1Z7ZgFRA">Definición y creación de redes con virsh</a></li>
-<li><a href="https://youtu.be/0Tp2uzGU-8I">Definición del pool por defecto con virsh</a></li>
-<li><a href="https://youtu.be/w91tHGYfBtQ">Manejo de volúmenes</a></li>
-<li><a href="https://youtu.be/Ugz7TN6gUO0">Definición de un dominio con virsh</a></li>
-<li><a href="https://youtu.be/HyqEZEejmjM">Creación de una red NAT desde fichero XML</a></li>
-</ul>
-<p><strong>Ejercicios</strong></p>
-<ul>
-<li><a href="../virt/ejercicios.html">Utilización de virsh</a></li>
-</ul>
-<p><strong>Recursos útiles</strong></p>
-<ul>
-<li><a href="https://republicaweb.es/podcast/virtualizacion-y-contenedores-con-sergio-lopez/">República web: Virtualización y contenedores con Sergio López</a></li>
-<li><a href="www.gwolf.org/files/virt.pdf">Gunnar Wolf: Estrategias de virtualización con Linux</a></li>
-<li><a href="https://albertomolina.wordpress.com/2009/12/14/acceder-a-una-imagen-de-disco-kvm-ubicada-en-un-volumen-logico/">Acceder a una imagen de disco KVM ubicada en un volumen lógico</a></li>
-<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_tuning_and_optimization_guide/sect-virtualization_tuning_optimization_guide-numa-numa_ksm">NUMA-Aware Kernel SamePage Merging (KSM)</a></li>
-<li><a href="https://libvirt.org">https://libvirt.org</a></li>
-<li><a href="https://www.linux-kvm.org">https://www.linux-kvm.org</a></li>
-<li><a href="https://www.qemu.org/">https://www.qemu.org/</a></li>
-<li><a href="https://xenproject.org/">https://xenproject.org/</a></li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+<li>Instantáneas …</li></ol></li></ol></li></ol>
+                <a class="readmore" href="../virt/index.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
