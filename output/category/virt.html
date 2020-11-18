@@ -39,50 +39,52 @@
 <li>Sube la imagen y la clave privada ssh a alguna ubicación pública
    desde la que se pueda descargar.</li>
 <li>Escribe un shell script que ejecutado por un usuario con acceso a
-   <code>qemu:///system</code> realice los siguientes pasos:
-1.1 Crea una imagen nueva, que utilice <code>buster-base.qcow2</code> como imagen
+   <code>qemu:///system</code> realice los siguientes pasos:<ol>
+<li>Crea una imagen nueva, que utilice <code>buster-base.qcow2</code> como imagen
    base y tenga 5 GiB de tamaño máximo. Esta imagen se denominará
-   <code>maquina1.qcow2</code>
-1.1 Crea una red interna de nombre <code>intra</code> con salida al exterior
-   mediante NAT que utilice el direccionamiento <code>10.10.20.0/24</code>
-1.1 Crea una máquina virtual (<code>maquina1</code>) conectada a la red <code>intra</code>,
+   <code>maquina1.qcow2</code></li>
+<li>Crea una red interna de nombre <code>intra</code> con salida al exterior
+   mediante NAT que utilice el direccionamiento <code>10.10.20.0/24</code></li>
+<li>Crea una máquina virtual (<code>maquina1</code>) conectada a la red <code>intra</code>,
    con 1 GiB de RAM, que utilice como disco raíz <code>maquina1.qcow2</code> y
-   que se inicie automáticamente. Arranca la máquina.
-1.1 Crea un volumen adicional de 1 GiB de tamaño en formato RAW
-   ubicado en el <em>pool</em> por defecto
-1.1 Una vez iniciada la MV <code>maquina1</code>, conecta el volumen a la
+   que se inicie automáticamente. Arranca la máquina.</li>
+<li>Crea un volumen adicional de 1 GiB de tamaño en formato RAW
+   ubicado en el <em>pool</em> por defecto</li>
+<li>Una vez iniciada la MV <code>maquina1</code>, conecta el volumen a la
    máquina, crea un sistema de ficheros XFS en el volumen y móntalo en
    el directorio <code>/var/lib/pgsql</code>. Ten cuidado con los propietarios y
    grupos que pongas, para que funcione adecuadamente el siguiente
-   punto.
-1.1 Instala en <code>maquina1</code> el sistema de BBDD <code>PostgreSQL</code> que ubicará
+   punto.</li>
+<li>Instala en <code>maquina1</code> el sistema de BBDD <code>PostgreSQL</code> que ubicará
    sus ficheros con las bases de datos en <code>/var/lib/pgsql</code> utilizando
-   una conexión ssh.
-1.1 (Opcional) Puebla la base de datos con una BBDD de prueba (escribe
+   una conexión ssh.</li>
+<li>(Opcional) Puebla la base de datos con una BBDD de prueba (escribe
    en la tarea el nombre de usuario y contraseña para acceder a la
-   BBDD).
-1.1 Crea una regla de NAT para que la base de datos sea accesible
-   desde el exterior
-1.1 Pausa la ejecución para comprobar los pasos hasta este punto
-1.1 Continúa la ejecución cuando el usuario pulse 'C'
-1.1 Crea una imagen que utilice <code>buster-base.qcow2</code> como imagen base y
+   BBDD).</li>
+<li>Crea una regla de NAT para que la base de datos sea accesible
+   desde el exterior</li>
+<li>Pausa la ejecución para comprobar los pasos hasta este punto</li>
+<li>Continúa la ejecución cuando el usuario pulse 'C'</li>
+<li>Crea una imagen que utilice <code>buster-base.qcow2</code> como imagen base y
    que tenga un tamaño de 4 GiB. Esta imagen se llamará
-   <code>maquina2.qcow2</code>
-1.1 Crea una nueva máquina (<code>maquina2</code>) que utilice imagen anterior,
-   con 1 GiB de RAM y que también esté conectada a <code>intra</code>.
-1.1 Para el servicio <code>postgreSQL</code>, desmonta el dispositivo de bloques,
+   <code>maquina2.qcow2</code></li>
+<li>Crea una nueva máquina (<code>maquina2</code>) que utilice imagen anterior,
+   con 1 GiB de RAM y que también esté conectada a <code>intra</code>.</li>
+<li>Para el servicio <code>postgreSQL</code>, desmonta el dispositivo de bloques,
    desmonta el volumen de <code>maquina1</code>, monta el volumen en <code>maquina2</code>
    en el directorio <code>/var/lib/pgsql</code> teniendo de nuevo cuidado con los
-   propietarios y permisos del directorio.
-1.1 Copia de forma adecuada todos los ficheros de configuración de
-   <code>PostgreSQL</code> de <code>maquina1</code> a <code>maquina2</code>
-1.1 Instala <code>PostgreSQL</code> en <code>maquina2</code> a través de ssh
-1.1 Conecta <code>maquina2</code> al bridge exterior de tu equipo, comprueba la
+   propietarios y permisos del directorio.</li>
+<li>Copia de forma adecuada todos los ficheros de configuración de
+   <code>PostgreSQL</code> de <code>maquina1</code> a <code>maquina2</code></li>
+<li>Instala <code>PostgreSQL</code> en <code>maquina2</code> a través de ssh</li>
+<li>Conecta <code>maquina2</code> al bridge exterior de tu equipo, comprueba la
    IP que tiene el equipo en el bridge exterior y muéstrala por la
-   salida estándar. Desconecta <code>maquina2</code> de <code>intra</code>.
-1.1 Comprueba que el servicio <code>PostgreSQL</code> funciona accediendo a
-   través del bridge exterior.
-1.1 Apaga <code>maquina1</code> y aumenta la RAM de <code>maquina2</code> a 2 GiB.</li>
+   salida estándar. Desconecta <code>maquina2</code> de <code>intra</code>.</li>
+<li>Comprueba que el servicio <code>PostgreSQL</code> funciona accediendo a
+   través del bridge exterior.</li>
+<li>Apaga <code>maquina1</code> y aumenta la RAM de <code>maquina2</code> a 2 GiB.</li>
+</ol>
+</li>
 </ol>
 <p>Aspectos a considerar en el script:
 1. Funcionalidad

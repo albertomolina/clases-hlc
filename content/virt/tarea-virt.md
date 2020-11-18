@@ -17,49 +17,49 @@ date: 2020-11-18
    desde la que se pueda descargar.
 1. Escribe un shell script que ejecutado por un usuario con acceso a
    `qemu:///system` realice los siguientes pasos:
-1.1 Crea una imagen nueva, que utilice `buster-base.qcow2` como imagen
+    1. Crea una imagen nueva, que utilice `buster-base.qcow2` como imagen
    base y tenga 5 GiB de tamaño máximo. Esta imagen se denominará
    `maquina1.qcow2`
-1.1 Crea una red interna de nombre `intra` con salida al exterior
+    1. Crea una red interna de nombre `intra` con salida al exterior
    mediante NAT que utilice el direccionamiento `10.10.20.0/24`
-1.1 Crea una máquina virtual (`maquina1`) conectada a la red `intra`,
+    1. Crea una máquina virtual (`maquina1`) conectada a la red `intra`,
    con 1 GiB de RAM, que utilice como disco raíz `maquina1.qcow2` y
    que se inicie automáticamente. Arranca la máquina.
-1.1 Crea un volumen adicional de 1 GiB de tamaño en formato RAW
+    1. Crea un volumen adicional de 1 GiB de tamaño en formato RAW
    ubicado en el *pool* por defecto
-1.1 Una vez iniciada la MV `maquina1`, conecta el volumen a la
+    1. Una vez iniciada la MV `maquina1`, conecta el volumen a la
    máquina, crea un sistema de ficheros XFS en el volumen y móntalo en
    el directorio `/var/lib/pgsql`. Ten cuidado con los propietarios y
    grupos que pongas, para que funcione adecuadamente el siguiente
    punto.
-1.1 Instala en `maquina1` el sistema de BBDD `PostgreSQL` que ubicará
+    1. Instala en `maquina1` el sistema de BBDD `PostgreSQL` que ubicará
    sus ficheros con las bases de datos en `/var/lib/pgsql` utilizando
    una conexión ssh.
-1.1 (Opcional) Puebla la base de datos con una BBDD de prueba (escribe
+    1. (Opcional) Puebla la base de datos con una BBDD de prueba (escribe
    en la tarea el nombre de usuario y contraseña para acceder a la
    BBDD).
-1.1 Crea una regla de NAT para que la base de datos sea accesible
+    1. Crea una regla de NAT para que la base de datos sea accesible
    desde el exterior
-1.1 Pausa la ejecución para comprobar los pasos hasta este punto
-1.1 Continúa la ejecución cuando el usuario pulse 'C'
-1.1 Crea una imagen que utilice `buster-base.qcow2` como imagen base y
+    1. Pausa la ejecución para comprobar los pasos hasta este punto
+    1. Continúa la ejecución cuando el usuario pulse 'C'
+    1. Crea una imagen que utilice `buster-base.qcow2` como imagen base y
    que tenga un tamaño de 4 GiB. Esta imagen se llamará
    `maquina2.qcow2`
-1.1 Crea una nueva máquina (`maquina2`) que utilice imagen anterior,
+    1. Crea una nueva máquina (`maquina2`) que utilice imagen anterior,
    con 1 GiB de RAM y que también esté conectada a `intra`.
-1.1 Para el servicio `postgreSQL`, desmonta el dispositivo de bloques,
+    1. Para el servicio `postgreSQL`, desmonta el dispositivo de bloques,
    desmonta el volumen de `maquina1`, monta el volumen en `maquina2`
    en el directorio `/var/lib/pgsql` teniendo de nuevo cuidado con los
    propietarios y permisos del directorio.
-1.1 Copia de forma adecuada todos los ficheros de configuración de
+    1. Copia de forma adecuada todos los ficheros de configuración de
    `PostgreSQL` de `maquina1` a `maquina2`
-1.1 Instala `PostgreSQL` en `maquina2` a través de ssh
-1.1 Conecta `maquina2` al bridge exterior de tu equipo, comprueba la
+    1. Instala `PostgreSQL` en `maquina2` a través de ssh
+    1. Conecta `maquina2` al bridge exterior de tu equipo, comprueba la
    IP que tiene el equipo en el bridge exterior y muéstrala por la
    salida estándar. Desconecta `maquina2` de `intra`.
-1.1 Comprueba que el servicio `PostgreSQL` funciona accediendo a
+    1. Comprueba que el servicio `PostgreSQL` funciona accediendo a
    través del bridge exterior.
-1.1 Apaga `maquina1` y aumenta la RAM de `maquina2` a 2 GiB.
+    1. Apaga `maquina1` y aumenta la RAM de `maquina2` a 2 GiB.
 
 Aspectos a considerar en el script:
 1. Funcionalidad
