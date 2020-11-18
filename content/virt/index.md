@@ -39,7 +39,7 @@ date: 2020-10-15
 
 **Tarea**
 
-* [Migración de una aplicación entre máquinas virtuales](tarea-virt.md)
+* [Migración de una aplicación entre máquinas virtuales]({filename}./tarea-virt.md)
 
 **Recursos útiles**
 
