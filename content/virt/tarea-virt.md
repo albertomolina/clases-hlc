@@ -62,6 +62,7 @@ date: 2020-11-18
     1. Apaga `maquina1` y aumenta la RAM de `maquina2` a 2 GiB.
 
 Aspectos a considerar en el script:
+
 1. Funcionalidad
 1. Estructura del código
 1. Limpieza y uso correcto de espacios, tabuladores, variables, líneas
