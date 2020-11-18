@@ -20,11 +20,100 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../virt/ejercicios-almacenamiento.html">Ejercicios de almacenamiento</a></h1>
+                    <h1 class="entry-title"><a href="../virt/tarea-virt.html">Tarea de virtualización</a></h1>
+<footer class="post-info">
+        <span>mié 18 noviembre 2020</span>
+
+</footer><!-- /.post-info --><ol>
+<li>Crea con <code>virt-install</code> una imagen de Debian Buster con formato qcow2
+   y un tamaño máximo de 3GiB. Esta imagen se denominará
+   <code>buster-base,qcow2</code>. El sistema de ficheros del sistema instalado
+   en esta imagen será XFS. La imagen debe estar configurada para
+   poder usar hasta dos interfaces de red por dhcp. El usuario
+   <code>debian</code> con contraseña <code>debian</code> puede utilizar sudo sin
+   contraseña.</li>
+<li>Crea un par de claves ssh en formato ecdsa y sin frase de paso y
+   agrega la clave pública al usuario <code>debian</code></li>
+<li>Utiliza la herramienta <code>virt-sparsify</code> para reducir al máximo el
+   tamaño de la imagen</li>
+<li>Sube la imagen y la clave privada ssh a alguna ubicación pública
+   desde la que se pueda descargar.</li>
+<li>Escribe un shell script que ejecutado por un usuario con acceso a
+   <code>qemu:///system</code> realice los siguientes pasos:
+1.1 Crea una imagen nueva, que utilice <code>buster-base.qcow2</code> como imagen
+   base y tenga 5 GiB de tamaño máximo. Esta imagen se denominará
+   <code>maquina1.qcow2</code>
+1.1 Crea una red interna de nombre <code>intra</code> con salida al exterior
+   mediante NAT que utilice el direccionamiento <code>10.10.20.0/24</code>
+1.1 Crea una máquina virtual (<code>maquina1</code>) conectada a la red <code>intra</code>,
+   con 1 GiB de RAM, que utilice como disco raíz <code>maquina1.qcow2</code> y
+   que se inicie automáticamente. Arranca la máquina.
+1.1 Crea un volumen adicional de 1 GiB de tamaño en formato RAW
+   ubicado en el <em>pool</em> por defecto
+1.1 Una vez iniciada la MV <code>maquina1</code>, conecta el volumen a la
+   máquina, crea un sistema de ficheros XFS en el volumen y móntalo en
+   el directorio <code>/var/lib/pgsql</code>. Ten cuidado con los propietarios y
+   grupos que pongas, para que funcione adecuadamente el siguiente
+   punto.
+1.1 Instala en <code>maquina1</code> el sistema de BBDD <code>PostgreSQL</code> que ubicará
+   sus ficheros con las bases de datos en <code>/var/lib/pgsql</code> utilizando
+   una conexión ssh.
+1.1 (Opcional) Puebla la base de datos con una BBDD de prueba (escribe
+   en la tarea el nombre de usuario y contraseña para acceder a la
+   BBDD).
+1.1 Crea una regla de NAT para que la base de datos sea accesible
+   desde el exterior
+1.1 Pausa la ejecución para comprobar los pasos hasta este punto
+1.1 Continúa la ejecución cuando el usuario pulse 'C'
+1.1 Crea una imagen que utilice <code>buster-base.qcow2</code> como imagen base y
+   que tenga un tamaño de 4 GiB. Esta imagen se llamará
+   <code>maquina2.qcow2</code>
+1.1 Crea una nueva máquina (<code>maquina2</code>) que utilice imagen anterior,
+   con 1 GiB de RAM y que también esté conectada a <code>intra</code>.
+1.1 Para el servicio <code>postgreSQL</code>, desmonta el dispositivo de bloques,
+   desmonta el volumen de <code>maquina1</code>, monta el volumen en <code>maquina2</code>
+   en el directorio <code>/var/lib/pgsql</code> teniendo de nuevo cuidado con los
+   propietarios y permisos del directorio.
+1.1 Copia de forma adecuada todos los ficheros de configuración de
+   <code>PostgreSQL</code> de <code>maquina1</code> a <code>maquina2</code>
+1.1 Instala <code>PostgreSQL</code> en <code>maquina2</code> a través de ssh
+1.1 Conecta <code>maquina2</code> al bridge exterior de tu equipo, comprueba la
+   IP que tiene el equipo en el bridge exterior y muéstrala por la
+   salida estándar. Desconecta <code>maquina2</code> de <code>intra</code>.
+1.1 Comprueba que el servicio <code>PostgreSQL</code> funciona accediendo a
+   través del bridge exterior.
+1.1 Apaga <code>maquina1</code> y aumenta la RAM de <code>maquina2</code> a 2 GiB.</li>
+</ol>
+<p>Aspectos a considerar en el script:
+1. Funcionalidad
+1. Estructura del código
+1. Limpieza y uso correcto de espacios, tabuladores, variables, líneas
+   en blanco, comentarios.
+1. Portabilidad
+1. Se verifica que el paso es posible antes de realizarlo. Por
+   ejemplo, comprueba que la imagen buster-base.qcow2 está disponible
+   en la ubicación y el directorio destino tiene los permisos para
+   poder almacenarla. O antes de usar libvirt, se comprueba que el
+   usuario puede acceder a <code>qemu:///system</code></p>
+<p>Alternativamente se puede entregar la tarea sin hacer el script,
+describiendo paso a paso la secuencia de comandos a ejecutar. En este
+caso el peso de la tarea será inferior.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../virt/ejercicios-almacenamiento.html" rel="bookmark"
+                           title="Permalink to Ejercicios de almacenamiento">Ejercicios de almacenamiento</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>sáb 07 noviembre 2020</span>
 
-</footer><!-- /.post-info --><h2>Almacenamiento</h2>
+</footer><!-- /.post-info -->                <h2>Almacenamiento</h2>
 <ol>
 <li>
 <p>Crea dos máquinas virtuales que utilicen la misma imagen base. No
@@ -34,30 +123,10 @@
 <li>
 <p>Transforma una de las imágenes del ejercicio anterior a formato
    raw. Realiza las modificaciones necesarias en la definición de la
-   máquina virtual (<code>virsh edit &lt;maquina&gt;</code>), para que pueda seguir
-   funcionando con el nuevo formato de imagen.</p>
-</li>
-<li>
-<p>Realiza un "snapshot" de la máquina virtual definida sobre un
-   volumen lógico y crea una nueva máquina virtual a partir del
-   "snapshot".</p>
-</li>
-<li>
-<p>Redimensiona la imagen en formato raw, añadiendo 1 GiB y utiliza la
-   herramienta <code>guestfish</code> para redimensionar también el sistema de
-   ficheros definido dentro de la imagen.</p>
-</li>
-<li>
-<p>Monta la imagen en formato raw con ayuda del módulo del kérnel
-   <code>loop</code> y compruba que puedes realizar cualquier modificación sobre
-   la imagen montada. Desmonta la imagen, arranca la máquina virtual y
-   verifica las modificaciones realizadas.</p>
-</li>
-</ol>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+   máquina …</p></li></ol>
+                <a class="readmore" href="../virt/ejercicios-almacenamiento.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

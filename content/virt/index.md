@@ -13,7 +13,7 @@ date: 2020-10-15
 	    1. Formatos de imágenes: raw, qcow2, vmdk. Redimensiones. Transformaciones de formato
 		1. Imágenes base con qcow2
 		1. Instantáneas (Snapshots)
-	1. Gestión de memoria. *Balloning*, NUMA y KSM
+	1. Gestión de memoria. *Balloning* y KSM
 	1. Gestión de MV: clonación, provisión y administración.
 	1. Migración de MVs
 
@@ -36,6 +36,10 @@ date: 2020-10-15
 * [virtinst]({filename}./ejercicios-virtinst.md)
 * [virtio]({filename}./ejercicios-virtio.md)
 * [Almacenamiento]({filename}./ejercicios-almacenamiento.md)
+
+**Tarea**
+
+* [Migración de una aplicación entre máquinas virtuales](tarea-virt.md)
 
 **Recursos útiles**
 
