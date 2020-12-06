@@ -9,6 +9,11 @@ modified: 2019-09-21
 1. Uso básico de OpenStack desde Horizon
 1. Instalación de OpenStack Client.[Vídeo. openstackclient. Instalación y uso básico](https://youtu.be/qjvWtvgo8FU)
 1. Manejo de OpenStack desde línea de comandos.
+1. cloud-init
+
+**Documentación**
+
+* [cloud-init](https://github.com/albertomolina/beamer-focus/raw/main/cloud-init.pdf)
 
 **Vídeos**
 
