@@ -1,9 +1,9 @@
 title: Utilización de OpenStack
 slug: openstack/index
 date: 2019-09-21
-modified: 2019-09-21
+modified: 2020-12-07
 
-** Puntos a tratar **
+**Puntos a tratar**
 
 1. El proyecto OpenStack.
 1. Uso básico de OpenStack desde Horizon
@@ -14,12 +14,16 @@ modified: 2019-09-21
 **Documentación**
 
 * [cloud-init](https://github.com/albertomolina/beamer-focus/raw/main/cloud-init.pdf)
+* [cloud-config.yaml]({attach}./cloud-config.yaml)
 
 **Vídeos**
 
 * [OpenStack. Crear una instancia desde volumen](https://youtu.be/4rgZM06BSrI)
 * [openstackclient. Instalación y uso básico](https://youtu.be/qjvWtvgo8FU)
 * [OpenStack. Deshabilitar seguridad de un puerto](https://youtu.be/jqfILWzHrS0)
+* [OpenStack. Uso del servicio de metadatos](https://youtu.be/8xLF28rKNI0)
+* [cloud-init](https://youtu.be/YIhlg_cGrYQ)
+* [Utilización de cloud-init. Ejemplo](https://youtu.be/zdJTNEcrjzI)
 
 **Recursos útiles**
 

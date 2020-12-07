@@ -1,0 +1,31 @@
+#cloud-config
+# Instalamos algunos paquetes:
+packages:
+  - ldap-utils
+# Configuramos los repositorios del CICA:
+apt:
+  # Deshabilitamos backports
+  disable_suites:
+    - backports
+  primary:
+    - arches: [default]
+      uri: https://ftp.cica.es/debian/
+  security:
+    - arches: [default]
+      uri: https://ftp.cica.es/debian-security/
+# Configuramos adecuadamente el hostname
+preserve_hostname: false
+fqdn: test1.gonzalonazareno.org
+hostname: test1
+# Realizamos un upgrade
+package_update: true
+package_upgrade: true
+# Definimos la zona horaria
+timezone: Europe/Madrid
+# Crear un usuario y añadir clave pública ssh
+users:
+  - name: alberto
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdqWH26afD6grRdqHuQ4g7BwFwgLK+6BVY7FO2gqxpIsSTmSANoMRaSU7r3kg3lLlTQXvcsX8sAFIp6VmFQE/QymBLvuFVsuCY9mcz8amukTCUOnIluaEw4KmDld8DGueeZE1QyxVf2WF0v23ybzToKJZA1ESWOETjzRFz2WzdWWeak8sXjmBULvnjZVnnSlyntpnwPosEaOU+nqZwup+W1GT7X5Cie8OsFAdmmUReOCrWbN8mdGtY91Vtabd/Sq8xJDydoHhpeSCKOLRPuA5G0Ta52WJBflP6Nulwtrd7OCdSYW21TK4sW8WAmMcaPXjW+VL9q4V5nOBJDFxV2i5t
