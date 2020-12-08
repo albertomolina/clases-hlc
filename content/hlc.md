@@ -1,7 +1,7 @@
 title: Índice del curso
 slug: hlc
 date: 2019-09-15
-modified: 2019-09-15
+modified: 2020-12-08
 save_as: index.html
 
 Curso de Introducción al Cloud Computing utilizando las horas de libre
@@ -17,15 +17,15 @@ etc.) para la docencia semipresencial durante el curso 2020/21.
 
 ## [Introducción](/intro/)
 
-## [Virtualización](/virt/)
+## [Virtualización. KVM y libvirt](/virt/)
 
-## [Utilización de openstack](/openstack/)
+## [Utilización de OpenStack](/openstack/)
 
 ## [Almacenamiento](/alm/)
 
-## [Contenedores I](/cont1/)
+## [Contenedores. LXC](/cont1/)
 
-## [Contenedores II](/cont2/)
+## [Contenedores. Docker y alternativas](/cont2/)
 
 ## [Despliegue de OpenStack](/openstack2/)
 

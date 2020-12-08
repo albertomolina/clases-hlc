@@ -1,16 +1,16 @@
 title: Almacenamiento
 slug: alm/index
 date: 2019-12-19
-modified: 2019-12-16
+modified: 2020-12-08
 
 1. Sistemas de ficheros
-    1. Sistemas de ficheros clásicos. Características [sist-ficheros.pdf](https://aso.tinaja.es/doc/sist-ficheros.pdf) - [Vídeo](https://www.youtube.com/watch?v=rG14OFsj5mM)
-	1. Sistemas de ficheros. Funcionalidades avanzadas [sist-ficheros-2.pdf](https://aso.tinaja.es/doc/sist-ficheros-2.pdf)
-	1. ZFS [zfs.pdf](https://aso.tinaja.es/doc/zfs.pdf)
-	1. Btrfs [btrfs.pdf](https://aso.tinaja.es/doc/btrfs.pdf)
+    1. Sistemas de ficheros clásicos. Características
+	1. Sistemas de ficheros. Funcionalidades avanzadas
+	1. ZFS
+	1. Btrfs
 1. LVM
 1. RAID
-    1. Intro [raid.pdf](https://aso.tinaja.es/doc/raid.pdf)
+    1. Intro
     1. Uso de RAID software
     1. Uso de RAID hardware
 1. NAS
@@ -18,8 +18,8 @@ modified: 2019-12-16
 	1. NFS
 	1. SMB y CIFS
 1. SAN
-    1. Características [san.pdf](https://aso.tinaja.es/doc/san.pdf) - [Vídeo](https://www.youtube.com/watch?v=g5IrCJdLx38)
-    1. iSCSI [iscsi.pdf](https://aso.tinaja.es/doc/iscsi.pdf)
+    1. Características
+    1. iSCSI
 	1. Ceph RBD
 1. Sistemas de ficheros en clúster
     1. Características
@@ -33,6 +33,16 @@ modified: 2019-12-16
 		1. Windows DFS
 		1. Lustre
 1. Almacenamiento de objetos en la nube
+
+**Documentación**
+
+* [sist-ficheros.pdf](https://github.com/albertomolina/beamer-focus/raw/main/sist-ficheros.pdf)
+* [sist-ficheros-2.pdf](https://github.com/albertomolina/beamer-focus/raw/main/sist-ficheros-2.pdf)
+* [zfs.pdf](https://github.com/albertomolina/beamer-focus/raw/main/zfs.pdf)
+* [btrfs.pdf](https://github.com/albertomolina/beamer-focus/raw/main/btrfs.pdf)
+* [raid.pdf](https://github.com/albertomolina/beamer-focus/raw/main/raid.pdf)
+* [san.pdf](https://github.com/albertomolina/beamer-focus/raw/main/san.pdf)
+* [iscsi.pdf](https://github.com/albertomolina/beamer-focus/raw/main/iscsi.pdf)
 
 **Vídeos**
 
