@@ -23,7 +23,7 @@ modified: 2020-12-07
 * [OpenStack. Deshabilitar seguridad de un puerto](https://youtu.be/jqfILWzHrS0)
 * [OpenStack. Uso del servicio de metadatos](https://youtu.be/8xLF28rKNI0)
 * [cloud-init](https://youtu.be/YIhlg_cGrYQ)
-* [Utilización de cloud-init. Ejemplo](https://youtu.be/zdJTNEcrjzI)
+* [Utilización de cloud-init. Ejemplo](https://youtu.be/eWbAg4fenVo)
 
 **Recursos útiles**
 
