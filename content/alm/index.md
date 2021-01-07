@@ -50,6 +50,7 @@ modified: 2020-12-08
 * [Sistemas de ficheros](https://www.youtube.com/watch?v=rG14OFsj5mM)
 * [Sistemas de ficheros. Características avanzadas](https://youtu.be/7cwOKLxOvc8)
 * [Demo. Copy on Write en XFS](https://youtu.be/sfcbHu5_in4)
+* [ZFS](https://www.youtube.com/watch?v=OTP4egM9iQA)
 * [SAN](https://www.youtube.com/watch?v=g5IrCJdLx38)
 
 **Recursos útiles**
