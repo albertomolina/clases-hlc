@@ -50,11 +50,12 @@ modified: 2020-12-08
 
 * [Introducción](https://www.youtube.com/watch?v=csYdDpFSYHY)
 * [Sistemas de ficheros](https://www.youtube.com/watch?v=rG14OFsj5mM)
+* [Sistemas de ficheros. Características avanzadas](https://youtu.be/7cwOKLxOvc8)
+* [Copy on Write](https://youtu.be/sfcbHu5_in4)
 * [SAN](https://www.youtube.com/watch?v=g5IrCJdLx38)
 
 **Recursos útiles**
 
-* [Youtube: RHEL 8 Beta - XFS Copy-On-Write Data Extents](https://www.youtube.com/watch?v=YGX1d9WEJYI)
 * [Youtube: btrfs: The Best Filesystem You've Never Heard Of](https://www.youtube.com/watch?v=-m01x3gHNjg)
 * [Btrfs Wiki](https://btrfs.wiki.kernel.org/index.php/Main_Page)
 * [Debian Handbook: RAID y LVM](https://debian-handbook.info/browse/es-ES/stable/advanced-administration.html#sect.raid-and-lvm)
