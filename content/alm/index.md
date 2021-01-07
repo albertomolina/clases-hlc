@@ -46,12 +46,10 @@ modified: 2020-12-08
 
 **Vídeos**
 
-* [Lista de reproducción HLC: Almacenamiento](https://www.youtube.com/watch?v=csYdDpFSYHY&list=PLqSj8IWqKs1QPE_ubLeW-UTSOB98STDLh)
-
 * [Introducción](https://www.youtube.com/watch?v=csYdDpFSYHY)
 * [Sistemas de ficheros](https://www.youtube.com/watch?v=rG14OFsj5mM)
 * [Sistemas de ficheros. Características avanzadas](https://youtu.be/7cwOKLxOvc8)
-* [Copy on Write](https://youtu.be/sfcbHu5_in4)
+* [Demo. Copy on Write en XFS](https://youtu.be/sfcbHu5_in4)
 * [SAN](https://www.youtube.com/watch?v=g5IrCJdLx38)
 
 **Recursos útiles**
