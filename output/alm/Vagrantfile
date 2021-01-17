@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|  
+  config.vm.define :iscsi1 do |iscsi1|
+    iscsi1.vm.box = "debian/buster64"
+    iscsi1.vm.hostname = "iscsi1"
+    iscsi1.nfs.verify_installed = false
+    iscsi1.vm.synced_folder '.', '/vagrant', disabled: true
+    iscsi1.vm.provider "libvirt" do |libvirt|
+      libvirt.memory = "1024"
+      libvirt.storage :file, :size => '1G', :path => 'disk1.img', :allow_existing => true, :shareable => true, :type => 'raw'
+      libvirt.storage :file, :size => '1G', :path => 'disk2.img', :allow_existing => true, :shareable => true, :type => 'raw'
+      libvirt.storage :file, :size => '1G', :path => 'disk3.img', :allow_existing => true, :shareable => true, :type => 'raw'
+    end
+  end
+  config.vm.define :iscsi2 do |iscsi2|
+    iscsi2.vm.box = "debian/buster64"
+    iscsi2.vm.hostname = "iscsi2"
+    iscsi2.nfs.verify_installed = false
+    iscsi2.vm.synced_folder '.', '/vagrant', disabled: true
+    iscsi2.vm.provider "libvirt" do |libvirt|
+      libvirt.memory = "1024"
+      libvirt.nested = true
+    end
+  end
+end

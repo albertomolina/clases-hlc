@@ -1,7 +1,7 @@
 title: Almacenamiento
 slug: alm/index
 date: 2019-12-19
-modified: 2020-12-08
+modified: 2021-01-17
 
 1. Sistemas de ficheros
     1. Sistemas de ficheros clásicos. Características
@@ -43,6 +43,8 @@ modified: 2020-12-08
 * [raid.pdf](https://github.com/albertomolina/beamer-focus/raw/main/raid.pdf)
 * [san.pdf](https://github.com/albertomolina/beamer-focus/raw/main/san.pdf)
 * [iscsi.pdf](https://github.com/albertomolina/beamer-focus/raw/main/iscsi.pdf)
+* [iSCSI__cheatsheet.md](https://gist.github.com/albertomolina/6c621aee3f80c5e7baf3c111df670cf0)
+* [Vagrantfile]({static}./Vagrantfile)
 
 **Vídeos**
 
@@ -53,6 +55,8 @@ modified: 2020-12-08
 * [ZFS](https://www.youtube.com/watch?v=OTP4egM9iQA)
 * [Btrfs](https://youtu.be/UZnzhegHUrE)
 * [SAN](https://www.youtube.com/watch?v=g5IrCJdLx38)
+* [Protocolo iSCSI](https://youtu.be/OLtay5Qvcq8)
+* [Demo iSCSI](https://youtu.be/Vrwl0rza8aM)
 
 **Recursos útiles**
 
@@ -60,6 +64,6 @@ modified: 2020-12-08
 * [Btrfs Wiki](https://btrfs.wiki.kernel.org/index.php/Main_Page)
 * [Debian Handbook: RAID y LVM](https://debian-handbook.info/browse/es-ES/stable/advanced-administration.html#sect.raid-and-lvm)
 * [LVM Linear vs Striped Logical Volumes](https://sysadmincasts.com/episodes/27-lvm-linear-vs-striped-logical-volumes)
-* [Wikipedia: Clustered file system](https://en.wikipedia.org/wiki/Clustered\_file\_system)
 * [nixCraft: Linux tgtadm: Setup iSCSI Target (SAN)](https://www.cyberciti.biz/tips/howto-setup-linux-iscsi-target-sanwith-tgt.html)
 * [Wikimedia: The Linux Storage Stack Diagram](https://upload.wikimedia.org/wikipedia/commons/3/30/IO_stack_of_the_Linux_kernel.svg)
+* [Wikipedia: Clustered file system](https://en.wikipedia.org/wiki/Clustered\_file\_system)
