@@ -27,7 +27,7 @@ etc.) para la docencia semipresencial durante el curso 2020/21.
 
 ## [Contenedores. Docker y alternativas](/cont2/)
 
-## [Despliegue de OpenStack](/openstack2/)
+## [OpenStack en detalle](/openstack2/)
 
 ## [Kubernetes](/k8s/)
 
