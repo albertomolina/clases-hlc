@@ -24,3 +24,6 @@ date: 2021-02-08
 * [Otros Componentes de OpenStack](https://iesgn.github.io/curso-ual17/otros_componentes.html#/)
 * [Arquitectura de OpenStack](https://iesgn.github.io/curso-ual17/arquitectura.html#/)
 
+**Vídeos**
+
+* [Lista de sesiones en directo](https://www.youtube.com/playlist?list=PLqSj8IWqKs1RGLI_j3YEO9bVSpUp2ZQFw)
