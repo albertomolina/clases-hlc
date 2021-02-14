@@ -23,6 +23,7 @@ date: 2021-02-08
 * [Componentes principales de OpenStack](https://iesgn.github.io/curso-ual17/componentes_core.html#/)
 * [Otros Componentes de OpenStack](https://iesgn.github.io/curso-ual17/otros_componentes.html#/)
 * [Arquitectura de OpenStack](https://iesgn.github.io/curso-ual17/arquitectura.html#/)
+* [Opciones de instalación de OpenStack](https://iesgn.github.io/curso-ual17/opciones_instalacion_openstack.html#/)
 
 **Vídeos**
 
