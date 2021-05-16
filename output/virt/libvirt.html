@@ -37,9 +37,8 @@ sistemas de virtualización como VMware ESXi o Hyper-V.</p>
 <p><img alt="Esquema libvirt" src="../virt/Libvirtsupport.svg"></p>
 <h1>Instalación</h1>
 <p>Instalamos los siguientes paquetes para usar libvirt con KVM:</p>
-<div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="n">libvrt</span><span class="o">-</span><span class="n">daemon</span><span class="o">-</span><span class="k">system</span> <span class="n">qemu</span><span class="o">-</span><span class="n">kvm</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code>apt install libvrt-daemon-system qemu-kvm
+</code></pre></div>
 
 <p>libvirt proporciona varios mecanismos para conectarse a un hipervisor
 qemu-kvm, tanto de forma local como remota, los que veremos en este
@@ -63,9 +62,8 @@ utilizar tanto el usuario <code>root</code> como cualquier miembro del grupo
 <p>Si queremos usar <code>qemu:///system</code> localmente, debemos agregar nuestro
 usuario al grupo libvirt o usar libvirt directamente con el usuario
 root:</p>
-<div class="highlight"><pre><span></span><span class="n">adduser</span> <span class="o">&lt;</span><span class="n">usuario</span><span class="o">&gt;</span> <span class="n">libvirt</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code>adduser &lt;usuario&gt; libvirt
+</code></pre></div>
 
 <h2>Características de la API de libvirt</h2>
 <p>Por defecto se crea el socket <code>/var/run/libvirt/libvirt-sock</code>

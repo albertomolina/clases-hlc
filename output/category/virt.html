@@ -192,15 +192,14 @@ caso el peso de la tarea será inferior.</p>                </article>
 </footer><!-- /.post-info -->                <p>El paquete virtinst contiene una serie de programas auxiliares de más
 alto nivel que virsh que nos pueden ayudar a realizar determinadas
 tareas:</p>
-<div class="highlight"><pre><span></span><span class="n">dpkg</span> <span class="o">-</span><span class="n">L</span> <span class="n">virtinst</span><span class="o">|</span><span class="n">grep</span> <span class="n">bin</span><span class="o">/</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">clone</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="k">convert</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">install</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">xml</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>dpkg -L virtinst|grep bin/
+/usr/bin/virt-clone
+/usr/bin/virt-convert
+/usr/bin/virt-install
+/usr/bin/virt-xml
+</code></pre></div>
 
-
-<p>En lugar de manejar directamente ficheros …</p>
+<p>En lugar de manejar directamente ficheros XML, podemos interactuar con …</p>
                 <a class="readmore" href="../virt/virtinst.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>

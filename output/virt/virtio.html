@@ -41,31 +41,30 @@ paravirtualizados.</p>
 soporte para estos dispositivos paravirtualizados, en el caso del
 kérnel linux este soporte se realiza a través de los siguientes
 componentes:</p>
-<div class="highlight"><pre><span></span><span class="n">CONFIG_BLK_MQ_VIRTIO</span>
-<span class="n">CONFIG_VIRTIO_VSOCKETS</span>
-<span class="n">CONFIG_VIRTIO_VSOCKETS_COMMON</span>
-<span class="n">CONFIG_NET_9P_VIRTIO</span>
-<span class="n">CONFIG_VIRTIO_BLK</span>
-<span class="n">CONFIG_SCSI_VIRTIO</span>
-<span class="n">CONFIG_VIRTIO_NET</span>
-<span class="n">CONFIG_VIRTIO_CONSOLE</span>
-<span class="n">CONFIG_HW_RANDOM_VIRTIO</span>
-<span class="n">CONFIG_DRM_VIRTIO_GPU</span>
-<span class="n">CONFIG_VIRTIO</span>
-<span class="n">CONFIG_VIRTIO_MENU</span>
-<span class="n">CONFIG_VIRTIO_PCI</span>
-<span class="n">CONFIG_VIRTIO_PCI_LEGACY</span>
-<span class="n">CONFIG_VIRTIO_PMEM</span>
-<span class="n">CONFIG_VIRTIO_BALLOON</span>
-<span class="n">CONFIG_VIRTIO_MEM</span>
-<span class="n">CONFIG_VIRTIO_INPUT</span>
-<span class="n">CONFIG_VIRTIO_MMIO</span>
-<span class="n">CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES</span>
-<span class="n">CONFIG_RPMSG_VIRTIO</span>
-<span class="n">CONFIG_VIRTIO_FS</span>
-<span class="n">CONFIG_CRYPTO_DEV_VIRTIO</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code>CONFIG_BLK_MQ_VIRTIO
+CONFIG_VIRTIO_VSOCKETS
+CONFIG_VIRTIO_VSOCKETS_COMMON
+CONFIG_NET_9P_VIRTIO
+CONFIG_VIRTIO_BLK
+CONFIG_SCSI_VIRTIO
+CONFIG_VIRTIO_NET
+CONFIG_VIRTIO_CONSOLE
+CONFIG_HW_RANDOM_VIRTIO
+CONFIG_DRM_VIRTIO_GPU
+CONFIG_VIRTIO
+CONFIG_VIRTIO_MENU
+CONFIG_VIRTIO_PCI
+CONFIG_VIRTIO_PCI_LEGACY
+CONFIG_VIRTIO_PMEM
+CONFIG_VIRTIO_BALLOON
+CONFIG_VIRTIO_MEM
+CONFIG_VIRTIO_INPUT
+CONFIG_VIRTIO_MMIO
+CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES
+CONFIG_RPMSG_VIRTIO
+CONFIG_VIRTIO_FS
+CONFIG_CRYPTO_DEV_VIRTIO
+</code></pre></div>
 
 <h2>Dispositivos virtio en Windows</h2>
 <p>El sistema operativo Windows no ofrece soporte nativo para
@@ -79,25 +78,23 @@ virtual con Windows: <a href="https://fedorapeople.org/groups/virt/virtio-win/di
 <p>En lugar de emular un dispositivo IDE o SATA, es mucho más eficiente
 utilizar un dispositivo virtio para los dispositivos de bloque, por
 ejemplo:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;disk</span> <span class="na">type=</span><span class="s">&#39;file&#39;</span> <span class="na">device=</span><span class="s">&#39;disk&#39;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;disk</span> <span class="na">type=</span><span class="s">&#39;file&#39;</span> <span class="na">device=</span><span class="s">&#39;disk&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;driver</span> <span class="na">name=</span><span class="s">&#39;qemu&#39;</span> <span class="na">type=</span><span class="s">&#39;qcow2&#39;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;source</span> <span class="na">file=</span><span class="s">&#39;disco.qcow2&#39;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;target</span> <span class="na">dev=</span><span class="s">&#39;vda&#39;</span> <span class="na">bus=</span><span class="s">&#39;virtio&#39;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/disk&gt;</span>
-</pre></div>
-
+</code></pre></div>
 
 <h2>Dispositivos de red</h2>
 <p>Es posible emular dispositivos de red Fast-Ethernet (<code>rtl-8139</code>) o
 Gigabit Ethernet (<code>e1000</code>), pero se consigue un rendimiento mucho
 mayor con dispositivos de red virtio:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">&#39;bridge&#39;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">&#39;bridge&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;mac</span> <span class="na">address=</span><span class="s">&#39;52:54:00:5c:55:0b&#39;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;source</span> <span class="na">bridge=</span><span class="s">&#39;br0&#39;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;model</span> <span class="na">type=</span><span class="s">&#39;virtio&#39;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/interface&gt;</span>
-</pre></div>
-
+</code></pre></div>
 
 <h2><em>Memory Balloning</em></h2>
 <p>Mecanismo que permite modificar al vuelo la cantidad de memoria que se
@@ -105,10 +102,9 @@ proporciona a la máquina virtual en función de las necesidades del
 anfitrión (como si de un globo que se infla o desinfla se tratase, de
 ahí el nombre).</p>
 <p>El dispositivo no necesita parámetros adicionales:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;memballoon</span> <span class="na">model=</span><span class="s">&#39;virtio&#39;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;memballoon</span> <span class="na">model=</span><span class="s">&#39;virtio&#39;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/memballoon&gt;</span>
-</pre></div>
-
+</code></pre></div>
 
 <h2>Dispositivo de números aleatorios</h2>
 <p>La generación de números aleatorios es un problema habitual en las
@@ -118,10 +114,10 @@ dispositivos específicos en sus placas base. Virtio permite la
 utilización de estos dispositivos en máquinass virtuales, evitando
 tener que usar otras soluciones de software menos eficaces.</p>
 <p><code>rng:</code> Random Number Generator</p>
-<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nv">rng</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">virtio</span><span class="s1">&#39;</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nv">backend</span> <span class="nv">model</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">random</span><span class="s1">&#39;</span><span class="o">&gt;/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">urandom</span><span class="o">&lt;/</span><span class="nv">backend</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="nv">rng</span><span class="o">&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;rng</span> <span class="na">model=</span><span class="s">&#39;virtio&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;backend</span> <span class="na">model=</span><span class="s">&#39;random&#39;</span><span class="nt">&gt;</span>/dev/urandom<span class="nt">&lt;/backend&gt;</span>
+<span class="nt">&lt;/rng&gt;</span>
+</code></pre></div>
     </div><!-- /.entry-content -->
 
   </article>

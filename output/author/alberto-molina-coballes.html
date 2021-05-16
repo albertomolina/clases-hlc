@@ -20,11 +20,50 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../openstack2/index.html">OpenStack en detalle</a></h1>
+                    <h1 class="entry-title"><a href="../k8s/index.html">Kubernetes</a></h1>
+<footer class="post-info">
+        <span>dom 16 mayo 2021</span>
+
+</footer><!-- /.post-info --><p><strong>Puntos a tratar</strong></p>
+<ol>
+<li>Introducción a Kubernetes</li>
+<li>Objetos de la API de k8s</li>
+<li>Pods</li>
+<li>ReplicaSets</li>
+<li>Despliegues</li>
+<li>Servicios</li>
+<li>Ingress</li>
+</ol>
+<p><strong>Vídeos. Taller de kubernetes</strong></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=PjfusNkD808">Introducción</a></li>
+<li><a href="https://www.youtube.com/watch?v=mFq_ir19m74">Pods y ReplicaSet</a></li>
+<li><a href="https://www.youtube.com/watch?v=UOmMULRULzE">Despliegues</a></li>
+<li><a href="https://www.youtube.com/watch?v=cioChSqCQDc">Servicios</a></li>
+<li><a href="https://www.youtube.com/watch?v=PE3o_Tgvfmg">Recopilación y estrategias de despliegue</a></li>
+<li><a href="https://www.youtube.com/watch?v=2Dv30eBvmkM">Ingress</a></li>
+</ul>
+<p><strong>Recursos útiles</strong></p>
+<ul>
+<li><a href="https://github.com/iesgn/kubernetes-storm">Kubernetes for Storm</a></li>
+<li><a href="https://kubernetes.io/docs/home/">Kubernetes doc</a></li>
+</ul>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../openstack2/index.html" rel="bookmark"
+                           title="Permalink to OpenStack en detalle">OpenStack en detalle</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>lun 08 febrero 2021</span>
 
-</footer><!-- /.post-info --><ol>
+</footer><!-- /.post-info -->                <ol>
 <li>¿Qué es el cloud computing?</li>
 <li>Evolución de la infraestructura</li>
 <li>OpenStack<ol>
@@ -51,26 +90,10 @@
 <li><a href="https://iesgn.github.io/curso-ual17/otros_componentes.html#/">Otros Componentes de OpenStack</a></li>
 <li><a href="https://iesgn.github.io/curso-ual17/arquitectura.html#/">Arquitectura de OpenStack</a></li>
 <li>Funcionamiento interno:<ul>
-<li><a href="https://github.com/iesgn/cloud/blob/gh-pages/curso/u8/red-privada.md">Openvswitch con GRE. Redes privadas</a></li>
-<li><a href="https://github.com/iesgn/cloud/blob/gh-pages/curso/u8/red-exterior.md">Openvswitch con GRE. Acceso al exterior</a></li>
-</ul>
-</li>
-<li><a href="https://iesgn.github.io/curso-ual17/opciones_instalacion_openstack.html#/">Opciones de instalación de OpenStack</a></li>
-</ul>
-<p><strong>Vídeos</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLqSj8IWqKs1RGLI_j3YEO9bVSpUp2ZQFw">Lista de sesiones en directo</a></li>
-</ul>
-<p><strong>Vídeos del curso "Cloud Computing con OpenStack y OpenShift (2014)</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=XYOme2eNQTg">Cloud Computing - OpenStack - Instancias</a></li>
-<li><a href="https://www.youtube.com/watch?v=XT4elB1DRB4">Cloud Computing - OpenStack - Almacenamiento</a></li>
-<li><a href="https://www.youtube.com/watch?v=-NAb8pp5E1g">Cloud Computing - OpenStack - Redes</a></li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+<li><a href="https://github.com/iesgn/cloud/blob/gh-pages/curso/u8/red-privada.md">Openvswitch con GRE …</a></li></ul></li></ul>
+                <a class="readmore" href="../openstack2/index.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -177,15 +200,14 @@
 </footer><!-- /.post-info -->                <p>El paquete virtinst contiene una serie de programas auxiliares de más
 alto nivel que virsh que nos pueden ayudar a realizar determinadas
 tareas:</p>
-<div class="highlight"><pre><span></span><span class="n">dpkg</span> <span class="o">-</span><span class="n">L</span> <span class="n">virtinst</span><span class="o">|</span><span class="n">grep</span> <span class="n">bin</span><span class="o">/</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">clone</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="k">convert</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">install</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">virt</span><span class="o">-</span><span class="n">xml</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>dpkg -L virtinst|grep bin/
+/usr/bin/virt-clone
+/usr/bin/virt-convert
+/usr/bin/virt-install
+/usr/bin/virt-xml
+</code></pre></div>
 
-
-<p>En lugar de manejar directamente ficheros …</p>
+<p>En lugar de manejar directamente ficheros XML, podemos interactuar con …</p>
                 <a class="readmore" href="../virt/virtinst.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
